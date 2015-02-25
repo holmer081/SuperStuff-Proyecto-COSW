@@ -29,6 +29,7 @@
         </dependency>
     </dependencies>
 
+    <!--PROJECT REPORTS-->
     <reporting>
         <plugins>
             <plugin>

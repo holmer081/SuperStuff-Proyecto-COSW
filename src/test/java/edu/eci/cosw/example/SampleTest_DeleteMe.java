@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aaaaa;
+package edu.eci.cosw.example;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,14 +14,14 @@ import static org.junit.Assert.*;
  *
  * @author hcadavid
  */
-public class NewEmptyJUnitTest {
+public class SampleTest_DeleteMe {
     
-    public NewEmptyJUnitTest() {
+    public SampleTest_DeleteMe() {
     }
     
     @Before
     public void setUp() {
-        System.out.println("!!!!!!!!!!!!!!!!!!!!");
+        
     }
     
     @After
