@@ -1,5 +1,5 @@
 test:
   post:
     - mvn site
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    - mkdir $CIRCLE_ARTIFACTS/reports
+    - exec cp -R target/* $CIRCLE_ARTIFACTS/reports
