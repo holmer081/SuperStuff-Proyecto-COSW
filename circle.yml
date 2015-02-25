@@ -2,4 +2,4 @@ test:
   post:
     - mvn site
     - mkdir $CIRCLE_ARTIFACTS/reports
-    - exec cp -R target/* $CIRCLE_ARTIFACTS/reports
+    - exec cp -R target/site/* $CIRCLE_ARTIFACTS/reports
