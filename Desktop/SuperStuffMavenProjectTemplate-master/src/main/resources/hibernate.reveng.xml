@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="coswg3"/>
+  <table-filter match-name="Tiendas"/>
+  <table-filter match-name="Pedidos"/>
+  <table-filter match-name="MetaDatos"/>
+  <table-filter match-name="Envios"/>
+  <table-filter match-name="Lugares"/>
+  <table-filter match-name="EstadoEnvios"/>
+  <table-filter match-name="Facturas"/>
+  <table-filter match-name="Bancos"/>
+  <table-filter match-name="EmpresasEnvio"/>
+  <table-filter match-name="Productos"/>
+  <table-filter match-name="Paises"/>
+  <table-filter match-name="Tenderos"/>
+  <table-filter match-name="Proveedores"/>
+  <table-filter match-name="Categorias"/>
+  <table-filter match-name="DetalleCompra"/>
+  <table-filter match-name="Descuentos"/>
+  <table-filter match-name="Productos_has_MetaDatos"/>
+  <table-filter match-name="Categorias_has_Productos"/>
+</hibernate-reverse-engineering>
