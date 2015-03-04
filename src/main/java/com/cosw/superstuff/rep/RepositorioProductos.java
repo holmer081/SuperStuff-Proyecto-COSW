@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.cosw.example;
+package com.cosw.superstuff.rep;
+
+import com.cosw.superstuff.persistencia.Producto;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author HOMERO
  */
-public class Test {
+public interface RepositorioProductos extends CrudRepository<Producto, Integer>{
     
 }
