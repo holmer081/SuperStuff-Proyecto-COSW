@@ -84,10 +84,12 @@ public class SuperStuffLogica {
      * Registra un nuevo pedido con los detalles de compra correspondiente
      * @param direccionEnvio La direccion del envio
      * @param fechaLlegada La fecha en la que deberia llegar el producto
-     * @param detalles Los detalles de pedido que van a ser asociados a este pedido
+     * @param producto La lista de los productos
+     * @param cantidad Las cantidades
      * @return El id del nuevo pedido registrado
+     * @throws java.lang.Exception En caso de que las cantidades no correspondan a los productos
      */
-    public int registrarPedido(String direccionEnvio, Date fechaLlegada, DetalleCompraId[] detalles){
+    public int registrarPedido(String direccionEnvio, Date fechaLlegada, int[] producto, int cantidad[]) throws Exception{
         return 0;
     }
     
