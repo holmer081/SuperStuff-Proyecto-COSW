@@ -18,6 +18,12 @@ import javax.persistence.Table;
 @Table(name="Tenderos")
 public class Tendero  implements java.io.Serializable {
 
+    public static final String CINCOREP = "5";
+    public static final String CUATROREP = "4";
+    public static final String TRESREP = "3";
+    public static final String DOSREP = "2";
+    public static final String UNAREP = "1";
+    
     private int idTenderos;
     private String nombre;
     private String reputacion;
@@ -26,16 +32,16 @@ public class Tendero  implements java.io.Serializable {
     public Tendero() {
     }
 	
-    public Tendero(int idTenderos, String nombre, String reputacion) {
+    public Tendero(int idTenderos, String nombre) {
         this.idTenderos = idTenderos;
         this.nombre = nombre;
-        this.reputacion = reputacion;
+        this.reputacion = TRESREP;
     }
     
-    public Tendero(int idTenderos, String nombre, String reputacion, Set<Tienda> tiendases) {
+    public Tendero(int idTenderos, String nombre, Set<Tienda> tiendases) {
        this.idTenderos = idTenderos;
        this.nombre = nombre;
-       this.reputacion = reputacion;
+       this.reputacion = TRESREP;
        this.tiendas = tiendases;
     }
    
