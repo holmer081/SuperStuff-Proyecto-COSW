@@ -35,6 +35,7 @@ public class SuperStuffLogica {
     private RepositorioEnvios repositorioEnvios;
     
     /**
+     * @author Holmer
      * Registra un nuevo producto
      * @param id El nuevo id que se registrara
      * @param proveedor El proveedor dueño de este producto
@@ -47,6 +48,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @author Andres
      * Trae todos los productos correspondiente a la categoria que llega por parametro
      * @param categoria El id de la categoria existente
      * @return Una List con los productos
@@ -56,6 +58,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @author Andres
      * Trae la lista de todos los productos existentes
      * @return La lista de los productos
      */
@@ -64,6 +67,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @author Holmer
      * Trae el producto correspondiente al id del proveedor
      * @param proveedor El id del proveedor
      * @return La lista de los productos filtrados por proveedor
@@ -73,6 +77,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @author Andres
      * Trae todas las categorias en existencia
      * @return Una lista de categorias
      */
@@ -81,6 +86,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @author Camilo
      * Registra un nuevo pedido con los detalles de compra correspondiente
      * @param direccionEnvio La direccion del envio
      * @param fechaLlegada La fecha en la que deberia llegar el producto
@@ -94,6 +100,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @author Camilo
      * Registra un nuevo envio
      * @param pedidos Los pedidos asociados a este envio
      * @return El id del nuevo envio registrado
@@ -103,6 +110,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @Author Andres
      * Actualiza el estado del envio
      * @param idEnvio el id del envio el cual se le va a actualizar el estado
      * @param lugar Donde se encuentra el envio
@@ -115,6 +123,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @Author Holmer
      * Crea un nuevo proveedor
      * @param idProveedores El id del proveedor
      * @param lugares la ubicacion geografica del proveedor
@@ -130,6 +139,7 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @Author Holmer
      * Crea un nuevo tendero
      * @param idTendero La cedula del tendero
      * @param nombre nombre del tendero
