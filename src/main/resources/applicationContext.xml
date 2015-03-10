@@ -17,7 +17,7 @@
     
     <context:component-scan base-package="com.cosw.superstuff.persistencia"/>
     
-    <jpa:repositories base-package="com.cosw.superstuff.persistencia"/>
+    <jpa:repositories base-package="com.cosw.superstuff.rep"/>
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -36,7 +36,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
         <!-- spring based scanning for entity classes-->
-        <property name="packagesToScan" value="com.cosw.superstuff.persistencia"/>
+        <property name="packagesToScan" value="com.cosw.superstuff.rep"/>
     </bean>
  
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
