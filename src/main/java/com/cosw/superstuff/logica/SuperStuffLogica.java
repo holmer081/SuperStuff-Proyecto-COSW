@@ -12,6 +12,7 @@ import com.cosw.superstuff.persistencia.Envio;
 import com.cosw.superstuff.persistencia.Lugar;
 import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
+import com.cosw.superstuff.persistencia.Proveedor;
 import com.cosw.superstuff.persistencia.Tendero;
 import com.cosw.superstuff.rep.RepositorioCategorias;
 import com.cosw.superstuff.rep.RepositorioDetalleCompra;
@@ -19,6 +20,7 @@ import com.cosw.superstuff.rep.RepositorioEnvios;
 import com.cosw.superstuff.rep.RepositorioPedidos;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
+import com.cosw.superstuff.rep.RepositorioTenderos;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -50,6 +52,9 @@ public class SuperStuffLogica {
     
     @Autowired
     private RepositorioDetalleCompra repositorioDetalleCompra;
+    
+    @Autowired
+    private RepositorioTenderos repositorioTenderos;
     
     /**
      * @author Holmer
@@ -181,7 +186,9 @@ public class SuperStuffLogica {
      * @return El id del nuevo proveedor
      */
     public int crearNuevoProveedor(int idProveedores, Lugar lugares, String razonSocial, String direccion, String contactoTelefonico, String sitioWeb, String email){
-        return 0;
+        Proveedor p = new Proveedor(idProveedores, lugares, razonSocial, direccion, contactoTelefonico, sitioWeb, email);
+        repositorioProveedores.save(p);
+        return p.getIdProveedores();
     }
     
     /**
@@ -191,5 +198,7 @@ public class SuperStuffLogica {
      * @param nombre nombre del tendero
      */
     public void crearNuevoTendero(int idTendero, String nombre){
+        Tendero t = new Tendero(idTendero, nombre);
+        repositorioTenderos.save(t);
     }
 }
