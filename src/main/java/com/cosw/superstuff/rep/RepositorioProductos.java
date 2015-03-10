@@ -5,6 +5,7 @@
  */
 package com.cosw.superstuff.rep;
 
+import com.cosw.superstuff.persistencia.Categoria;
 import com.cosw.superstuff.persistencia.Producto;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,10 @@ public interface RepositorioProductos extends CrudRepository<Producto, Integer>{
     
     @Query("SELECT p FROM Producto p inner join p.categoria c where c.idCategorias=:ln")
     public List<Producto> productosPorCategoria(@Param(":idCategoria") int idCategoria);
+    
+    @Query("FROM Producto p")
+    public List<Producto> CargarTodoslosProductos();
+    
+    @Query("FROM Categoria c")
+    public List<Categoria> CargarCategorias();
 }
