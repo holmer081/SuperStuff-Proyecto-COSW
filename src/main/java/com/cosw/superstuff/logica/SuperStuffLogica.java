@@ -6,6 +6,7 @@
 package com.cosw.superstuff.logica;
 
 import com.cosw.superstuff.persistencia.Categoria;
+import com.cosw.superstuff.persistencia.Descuento;
 import com.cosw.superstuff.persistencia.DetalleCompra;
 import com.cosw.superstuff.persistencia.DetalleCompraId;
 import com.cosw.superstuff.persistencia.Envio;
@@ -15,6 +16,7 @@ import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Proveedor;
 import com.cosw.superstuff.persistencia.Tendero;
 import com.cosw.superstuff.rep.RepositorioCategorias;
+import com.cosw.superstuff.rep.RepositorioDescuentos;
 import com.cosw.superstuff.rep.RepositorioDetalleCompra;
 import com.cosw.superstuff.rep.RepositorioEnvios;
 import com.cosw.superstuff.rep.RepositorioPedidos;
@@ -56,6 +58,9 @@ public class SuperStuffLogica {
     @Autowired
     private RepositorioTenderos repositorioTenderos;
     
+    @Autowired
+    private RepositorioDescuentos repositorioDescuentos;
+    
     /**
      * @author Holmer
      * Registra un nuevo producto
@@ -67,6 +72,11 @@ public class SuperStuffLogica {
      * @param descripcion La descripcion caracteristica de este producto
      */
     public void registrarProducto(int id, int proveedor, int categoria, int descuento, int precio, String descripcion) {
+        Proveedor prov = repositorioProveedores.findOne(Integer.valueOf(proveedor));
+        Categoria cat = repositorioCategorias.findOne(Integer.valueOf(categoria));
+        Descuento desc = repositorioDescuentos.findOne(Integer.valueOf(descuento));
+        Producto producto = new Producto(id, cat, desc, descripcion, prov, precio);
+        repositorioProductos.save(producto);
     }
     
     /**
