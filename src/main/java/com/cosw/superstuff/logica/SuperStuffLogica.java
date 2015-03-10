@@ -9,6 +9,7 @@ import com.cosw.superstuff.persistencia.Categoria;
 import com.cosw.superstuff.persistencia.DetalleCompraId;
 import com.cosw.superstuff.persistencia.Lugar;
 import com.cosw.superstuff.persistencia.Producto;
+import com.cosw.superstuff.rep.RepositorioCategorias;
 import com.cosw.superstuff.rep.RepositorioEnvios;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
@@ -30,6 +31,9 @@ public class SuperStuffLogica {
     
     @Autowired
     private RepositorioProductos repositorioProductos;
+    
+    @Autowired
+    private RepositorioCategorias repositorioCategorias;
     
     @Autowired
     private RepositorioEnvios repositorioEnvios;
@@ -82,7 +86,7 @@ public class SuperStuffLogica {
      * @return Una lista de categorias
      */
     public List<Categoria> cargarCategorias(){
-        return repositorioProductos.CargarCategorias();
+        return repositorioCategorias.CargarCategorias();
     }
     
     /**

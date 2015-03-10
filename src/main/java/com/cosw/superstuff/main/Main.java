@@ -45,26 +45,9 @@ public class Main {
    
         //Aqui va codigo de pruebas
         
-        int[] idProductos = {1,3,5,6,8};
-        int[] cantidades = {10,20,30,40,50};
-        
-        try {
-            Funciones.registroPedido(session, "Calle 147# 13 - 62", new Date(), idProductos, cantidades);
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         Query q2 = session.createQuery("SELECT e.pedidos from Envio e inner join e.pedidos as p inner join p.detalleCompras as detalleP inner join detalleP.productos as prod inner join prod.proveedores as prov where (prov.idProveedores = 1) and (day(e.fechaSalida) < day(:finalDate)) GROUP BY prov");
-        Date fecha = new Date();
-        Date fechaFinal = new Date(fecha.getYear(), fecha.getMonth(), fecha.getDate()-10);
         
-        
-        q2.setParameter("finalDate", fechaFinal);
         List<Pedido> p = q2.list();
-        
-         
-       System.out.println(p.toString());
-        System.out.println(fechaFinal);
         
         for (Pedido p1 : p) {
             System.out.println("Fecha" + p1.getFechaLlegada().toString());

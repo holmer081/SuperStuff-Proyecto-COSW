@@ -24,6 +24,4 @@ public interface RepositorioProductos extends CrudRepository<Producto, Integer>{
     @Query("FROM Producto p")
     public List<Producto> CargarTodoslosProductos();
     
-    @Query("FROM Categoria c")
-    public List<Categoria> CargarCategorias();
 }
