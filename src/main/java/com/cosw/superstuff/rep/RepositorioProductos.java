@@ -7,6 +7,7 @@ package com.cosw.superstuff.rep;
 
 import com.cosw.superstuff.persistencia.Producto;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -16,5 +17,6 @@ import org.springframework.data.repository.query.Param;
  */
 public interface RepositorioProductos extends CrudRepository<Producto, Integer>{
     
+    @Query("")
     public List<Producto> productosPorCategoria(@Param(":idCategoria") int idCategoria);
 }
