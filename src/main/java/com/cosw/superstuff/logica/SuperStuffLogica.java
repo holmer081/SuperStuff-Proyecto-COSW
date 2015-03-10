@@ -54,7 +54,7 @@ public class SuperStuffLogica {
      * @return Una List con los productos
      */
     public List<Producto> cargarProductosPorCategoria(int categoria){
-        return null;
+        return repositorioProductos.productosPorCategoria(categoria);
     }
     
     /**
