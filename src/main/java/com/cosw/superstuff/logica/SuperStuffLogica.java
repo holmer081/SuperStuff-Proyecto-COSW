@@ -95,7 +95,8 @@ public class SuperStuffLogica {
      * @return La lista de los productos filtrados por proveedor
      */
     public List<Producto> cargarProductosPorProveedor(int proveedor){
-        return null;
+        List<Producto> productos = repositorioProductos.cargarProductosPorProveedor(proveedor);
+        return productos;
     }
     
     /**
