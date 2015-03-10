@@ -85,7 +85,7 @@ public class SuperStuffLogica {
      * @return La lista de los productos
      */
     public List<Producto> cargarTodosLosProductos(){
-        return repositorioProductos.CargarTodoslosProductos();
+        return (List<Producto>) repositorioProductos.findAll();
     }
     
     /**
