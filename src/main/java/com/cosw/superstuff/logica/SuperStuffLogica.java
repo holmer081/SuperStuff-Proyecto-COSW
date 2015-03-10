@@ -6,14 +6,21 @@
 package com.cosw.superstuff.logica;
 
 import com.cosw.superstuff.persistencia.Categoria;
+import com.cosw.superstuff.persistencia.DetalleCompra;
 import com.cosw.superstuff.persistencia.DetalleCompraId;
+import com.cosw.superstuff.persistencia.Envio;
 import com.cosw.superstuff.persistencia.Lugar;
+import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
+import com.cosw.superstuff.persistencia.Tendero;
 import com.cosw.superstuff.rep.RepositorioCategorias;
+import com.cosw.superstuff.rep.RepositorioDetalleCompra;
 import com.cosw.superstuff.rep.RepositorioEnvios;
+import com.cosw.superstuff.rep.RepositorioPedidos;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +44,12 @@ public class SuperStuffLogica {
     
     @Autowired
     private RepositorioEnvios repositorioEnvios;
+    
+    @Autowired
+    private RepositorioPedidos repositorioPedidos;
+    
+    @Autowired
+    private RepositorioDetalleCompra repositorioDetalleCompra;
     
     /**
      * @author Holmer
@@ -99,8 +112,34 @@ public class SuperStuffLogica {
      * @return El id del nuevo pedido registrado
      * @throws java.lang.Exception En caso de que las cantidades no correspondan a los productos
      */
-    public int registrarPedido(String direccionEnvio, Date fechaLlegada, int[] producto, int cantidad[]) throws Exception{
-        return 0;
+    public int registrarPedido(String direccion, Date fecha, int[] idProductos, int cantidades[]) throws Exception{
+        if(idProductos.length != cantidades.length)
+            throw new Exception("cantidades no corresponder al numero de productos a pedir");
+        
+        int valorPedido = 0;
+        Set<DetalleCompra> detallesCompra = new HashSet<>();
+        Pedido pedido = new Pedido(direccion, fecha, 0);
+        repositorioPedidos.save(pedido);
+        
+        for (int i = 0; i < idProductos.length; i++) {
+            int idProducto = idProductos[i];
+            DetalleCompraId idDetalle = new DetalleCompraId(pedido.getIdPedidos(), idProducto);    
+            Producto producto = repositorioProductos.findOne(idProducto);
+            
+            valorPedido += cantidades[i] * producto.getPrecioLista();
+            
+            DetalleCompra detalleCompra = new DetalleCompra(idDetalle, producto, cantidades[i], producto.getPrecioLista());
+            detallesCompra.add(detalleCompra);
+            
+            repositorioDetalleCompra.save(detalleCompra);
+        }
+        
+        pedido.setDetalleCompras(detallesCompra);
+        pedido.setValorTotal(valorPedido);
+        
+        repositorioPedidos.save(pedido);
+        
+        return pedido.getIdPedidos();
     }
     
     /**
@@ -110,7 +149,10 @@ public class SuperStuffLogica {
      * @return El id del nuevo envio registrado
      */
     public int registrarEnvio(Set pedidos){
-        return 0;
+        Envio envio = new Envio(new Date());
+        envio.setPedidos(pedidos);
+        repositorioEnvios.save(envio);
+        return envio.getIdEnvio();
     }
     
     /**
