@@ -18,8 +18,8 @@ import org.springframework.data.repository.query.Param;
  */
 public interface RepositorioProductos extends CrudRepository<Producto, Integer>{
     
-    @Query("SELECT p FROM Producto p inner join p.categoria c where c.idCategorias=:ln")
-    public List<Producto> productosPorCategoria(@Param(":idCategoria") int idCategoria);
+    @Query("SELECT p FROM Producto p inner join p.categoria c where c.idCategorias = :idCategoria")
+    public List<Producto> productosPorCategoria(@Param("idCategoria") int idCategoria);
     
     @Query("FROM Producto p")
     public List<Producto> CargarTodoslosProductos();

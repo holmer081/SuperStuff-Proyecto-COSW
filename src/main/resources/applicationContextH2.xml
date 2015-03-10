@@ -20,7 +20,7 @@
     
     <context:component-scan base-package="com.cosw.superstuff.logica"/>
     
-    <context:component-scan base-package="com.cosw.superstuff.persistencia"/>
+    <context:component-scan base-package="com.cosw.superstuff.rep"/>
     
     <jpa:repositories base-package="com.cosw.superstuff.rep"/>
  
