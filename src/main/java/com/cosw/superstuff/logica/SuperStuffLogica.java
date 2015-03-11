@@ -50,6 +50,9 @@ public class SuperStuffLogica {
     private RepositorioEnvios repositorioEnvios;
     
     @Autowired
+    private RepositorioEnvios repositorioEstadoEnvios;
+    
+    @Autowired
     private RepositorioPedidos repositorioPedidos;
     
     @Autowired
@@ -124,7 +127,7 @@ public class SuperStuffLogica {
      * @return Una lista de categorias
      */
     public List<Categoria> cargarCategorias(){
-        return repositorioCategorias.CargarCategorias();
+        return (List<Categoria>) repositorioCategorias.findAll();
     }
     
     /**
@@ -190,6 +193,7 @@ public class SuperStuffLogica {
      * @param coords Las coordenadas de la ubicacion exacta del envio
      */
     public void actualizarEstadoDeEnvio(int idEnvio, Lugar lugar, String estado, String descripcion, String coords){
+        Envio e=repositorioEnvios.findOne(idEnvio);
         
     }
     

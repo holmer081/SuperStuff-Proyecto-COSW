@@ -5,17 +5,19 @@
  */
 package com.cosw.superstuff.rep;
 
-import com.cosw.superstuff.persistencia.Envio;
-import com.cosw.superstuff.persistencia.Producto;
-import java.util.List;
+
+import com.cosw.superstuff.persistencia.EstadoEnvio;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
  *
- * @author HOMERO
+ * @author Usuario
  */
-public interface RepositorioEnvios extends CrudRepository<Envio, Integer>{
-       
+public interface RepositorioEstadoEnvios extends CrudRepository<EstadoEnvio,Integer> {
+    
+    @Query("UPDATE Envio e set e.estadoEnvios=:estadoEnvios where idEnvio= :idEnvio")
+    public void ActualizarEnvio(@Param("idEstadoEnvios") int idEstadoEnvios,@Param("lugares") String lugares);
+    
 }
