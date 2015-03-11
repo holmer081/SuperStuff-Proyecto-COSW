@@ -80,6 +80,15 @@ public class SuperStuffLogica {
     }
     
     /**
+     * @author Holmer
+     * Registra un nuevo producto a partir de un objeto instanciado
+     * @param producto 
+     */
+    public void registrarProducto(Producto producto){
+        repositorioProductos.save(producto);
+    }
+    
+    /**
      * @author Andres
      * Trae todos los productos correspondiente a la categoria que llega por parametro
      * @param categoria El id de la categoria existente
@@ -204,6 +213,17 @@ public class SuperStuffLogica {
     
     /**
      * @Author Holmer
+     * Crea un nuevo proveedor
+     * @param proveedor
+     * @return id del proveedo, una vez tiene un estado persistente
+     */
+    public int crearNuevoProveedor(Proveedor proveedor){
+        repositorioProveedores.save(proveedor);
+        return proveedor.getIdProveedores();
+    }
+    
+    /**
+     * @Author Holmer
      * Crea un nuevo tendero
      * @param idTendero La cedula del tendero
      * @param nombre nombre del tendero
@@ -211,5 +231,9 @@ public class SuperStuffLogica {
     public void crearNuevoTendero(int idTendero, String nombre){
         Tendero t = new Tendero(idTendero, nombre);
         repositorioTenderos.save(t);
+    }
+    
+    public List<Proveedor> cargarTodosLosProveedores(){
+        return (List<Proveedor>) repositorioProveedores.findAll();
     }
 }
