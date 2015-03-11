@@ -7,20 +7,31 @@
 import com.cosw.superstuff.logica.SuperStuffLogica;
 import com.cosw.superstuff.persistencia.Categoria;
 import com.cosw.superstuff.persistencia.Descuento;
+import com.cosw.superstuff.persistencia.DetalleCompra;
+import com.cosw.superstuff.persistencia.DetalleCompraId;
+import com.cosw.superstuff.persistencia.Envio;
 import com.cosw.superstuff.persistencia.Lugar;
 import com.cosw.superstuff.persistencia.Pais;
+import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Proveedor;
 import com.cosw.superstuff.rep.RepositorioCategorias;
 import com.cosw.superstuff.rep.RepositorioDescuentos;
+import com.cosw.superstuff.rep.RepositorioEnvios;
 import com.cosw.superstuff.rep.RepositorioLugares;
 import com.cosw.superstuff.rep.RepositorioPaises;
+import com.cosw.superstuff.rep.RepositorioPedidos;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.collections.IteratorUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -61,6 +72,12 @@ public class SuperStuffTest {
     @Autowired
     private RepositorioProductos repositorioProductos;
     
+    @Autowired
+    private RepositorioPedidos repositorioPedidos;
+    
+    @Autowired
+    private RepositorioEnvios repositorioEnvios;
+    
     private static boolean DATOSPREPARADOS = false;
     
     public SuperStuffTest() {
@@ -88,6 +105,31 @@ public class SuperStuffTest {
             superStuff.crearNuevoProveedor(new Proveedor(4, lugares.get(0), "Ramo", "Calle Falsa 125", "3045463403", "www.prueba.com", "prueba@mail.com"));
             superStuff.crearNuevoProveedor(new Proveedor(5, lugares.get(0), "Telas ECI", "Calle Falsa 126", "3045463404", "www.prueba.com", "prueba@mail.com"));
             superStuff.crearNuevoProveedor(new Proveedor(6, lugares.get(0), "Lacteos ECI", "Calle Falsa 127", "3045463405", "www.prueba.com", "prueba@mail.com"));     
+
+            
+            Categoria c = repositorioCategorias.findOne(1);
+            Categoria c1 = repositorioCategorias.findOne(100);
+            Iterable<Descuento> descuentos = repositorioDescuentos.findAll();
+            Descuento d = descuentos.iterator().next();
+            Descuento d1 = descuentos.iterator().next();
+            Proveedor p = repositorioProveedores.findOne(1);
+            Proveedor pr2 = repositorioProveedores.findOne(2);
+            Proveedor pr3 = repositorioProveedores.findOne(3);
+            Proveedor pr4 = repositorioProveedores.findOne(4);
+            Proveedor pr5 = repositorioProveedores.findOne(5);
+            Proveedor pr6 = repositorioProveedores.findOne(6);
+            repositorioProductos.save(new Producto(1, c1, d1, "Jack Daniel´s Whiskey Old Time", p, 1000000));
+            repositorioProductos.save(new Producto(2, c1, d1, "Cerveza Aguila", p, 1000000));
+            repositorioProductos.save(new Producto(3, c1, d1, "Aguardiente Antioqueño", p, 1000000));
+            repositorioProductos.save(new Producto(4, c1, d1, "Vino Cariñoso", p, 1000000));
+            repositorioProductos.save(new Producto(5, c1, d1, "Aguardiente Blanco del Valle Ice", p, 1000000));
+            repositorioProductos.save(new Producto(6, c1, d1, "Baileys Irish Cream", p, 1000000));
+            repositorioProductos.save(new Producto(7, c1, d1, "A", pr2, 1000000));
+            repositorioProductos.save(new Producto(8, c1, d1, "B", pr3, 1000000));
+            repositorioProductos.save(new Producto(9, c1, d1, "C", pr4, 1000000));
+            repositorioProductos.save(new Producto(10, c1, d1, "D", pr5, 1000000));
+            repositorioProductos.save(new Producto(11, c1, d1, "E", pr6, 1000000));
+            repositorioProductos.save(new Producto(12, c1, d1, "F", pr6, 1000000));
         }
         DATOSPREPARADOS = true;
     }
@@ -130,36 +172,7 @@ public class SuperStuffTest {
         superStuff.crearNuevoProveedor(new Proveedor(4, lugares.get(0), "Ramo", "Calle Falsa 125", "3045463403", "www.prueba.com", "prueba@mail.com"));
         superStuff.crearNuevoProveedor(new Proveedor(5, lugares.get(0), "Telas ECI", "Calle Falsa 126", "3045463404", "www.prueba.com", "prueba@mail.com"));
         superStuff.crearNuevoProveedor(new Proveedor(6, lugares.get(0), "Lacteos ECI", "Calle Falsa 127", "3045463405", "www.prueba.com", "prueba@mail.com"));
-        
-        Categoria c = new Categoria(1, "Prueba", "Categoria de prueba");
-        Categoria c1 = new Categoria(100, "Bebidas Alcoholicas", "Categoria que agrupa Bebidas Alcoholicas");
-        Descuento d = new Descuento(0, new Date(), new Date(), "Esto es un descuento del 0%");
-        Descuento d1 = new Descuento(100, new Date(), new Date(), "Esto es un descuento del 10%");
-        
-        Proveedor p = repositorioProveedores.findOne(1);
-        Proveedor pr2 = repositorioProveedores.findOne(2);
-        Proveedor pr3 = repositorioProveedores.findOne(3);
-        Proveedor pr4 = repositorioProveedores.findOne(4);
-        Proveedor pr5 = repositorioProveedores.findOne(5);
-        Proveedor pr6 = repositorioProveedores.findOne(6);
-        
-        repositorioCategorias.save(c);
-        repositorioCategorias.save(c1);
-        repositorioDescuentos.save(d);
-        repositorioDescuentos.save(d1);
-        repositorioProductos.save(new Producto(1, c1, d1, "Jack Daniel´s Whiskey Old Time", p, 1000000));
-        repositorioProductos.save(new Producto(2, c1, d1, "Cerveza Aguila", p, 1000000));
-        repositorioProductos.save(new Producto(3, c1, d1, "Aguardiente Antioqueño", p, 1000000));
-        repositorioProductos.save(new Producto(4, c1, d1, "Vino Cariñoso", p, 1000000));
-        repositorioProductos.save(new Producto(5, c1, d1, "Aguardiente Blanco del Valle Ice", p, 1000000));
-        repositorioProductos.save(new Producto(6, c1, d1, "Baileys Irish Cream", p, 1000000));
-        repositorioProductos.save(new Producto(7, c1, d1, "A", pr2, 1000000));
-        repositorioProductos.save(new Producto(8, c1, d1, "B", pr3, 1000000));
-        repositorioProductos.save(new Producto(9, c1, d1, "C", pr4, 1000000));
-        repositorioProductos.save(new Producto(10, c1, d1, "D", pr5, 1000000));
-        repositorioProductos.save(new Producto(11, c1, d1, "E", pr6, 1000000));
-        repositorioProductos.save(new Producto(12, c1, d1, "F", pr6, 1000000));
-        
+               
         List<Producto> producto = superStuff.cargarProductosPorProveedor(1);
         
         for (Producto producto1 : producto) {
@@ -176,6 +189,38 @@ public class SuperStuffTest {
     
     @Test
     public void registrarPedido() {
+        int[] idProductos = {1,2,3,4,5};
+        int[] cantidades = {20,15,5,40,10};
+        
+        int[] idProductos2 = {6,7,8,9};
+        int[] cantidades2 = {10,20,30,40};
+        
+        try {
+            superStuff.registrarPedido("Calle 159a #13a-46", new Date(), idProductos, cantidades);
+            superStuff.registrarPedido("Calle 142 #13-62", new Date(), idProductos2, cantidades2);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        Iterator<Pedido> myIterator = repositorioPedidos.findAll().iterator();
+        List<Pedido> myList = IteratorUtils.toList(myIterator);
+                
+        assertEquals("El numero de pedidos registrados fue de 2", 2, myList.size());
+    }
+    
+    @Test
+    public void registrarNuevoEnvio() {
+        Iterator<Pedido> myIterator = repositorioPedidos.findAll().iterator();
+        List<Pedido> myList = IteratorUtils.toList(myIterator);
+        Set<Pedido> pedidos = new HashSet<>(myList);
+        
+        superStuff.registrarEnvio(pedidos);
+        
+        Iterator<Envio> iterator = repositorioEnvios.findAll().iterator();
+        List<Envio> envios = IteratorUtils.toList(iterator);
+        
+        Envio envio = repositorioEnvios.findAll().iterator().next();
+        assertEquals("El numero de pedidos registrados fue de 2", 2, envio.getPedidos().size());
         
     }
 }
