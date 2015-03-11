@@ -19,6 +19,7 @@ import com.cosw.superstuff.rep.RepositorioCategorias;
 import com.cosw.superstuff.rep.RepositorioDescuentos;
 import com.cosw.superstuff.rep.RepositorioDetalleCompra;
 import com.cosw.superstuff.rep.RepositorioEnvios;
+import com.cosw.superstuff.rep.RepositorioEstadoEnvios;
 import com.cosw.superstuff.rep.RepositorioPedidos;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
@@ -50,7 +51,7 @@ public class SuperStuffLogica {
     private RepositorioEnvios repositorioEnvios;
     
     @Autowired
-    private RepositorioEnvios repositorioEstadoEnvios;
+    private RepositorioEstadoEnvios repositorioEstadoEnvios;
     
     @Autowired
     private RepositorioPedidos repositorioPedidos;
@@ -193,8 +194,7 @@ public class SuperStuffLogica {
      * @param coords Las coordenadas de la ubicacion exacta del envio
      */
     public void actualizarEstadoDeEnvio(int idEnvio, Lugar lugar, String estado, String descripcion, String coords){
-        Envio e=repositorioEnvios.findOne(idEnvio);
-        
+        repositorioEstadoEnvios.ActualizarEnvio(idEnvio,estado,descripcion,coords);
     }
     
     /**

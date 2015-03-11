@@ -241,6 +241,13 @@ public class SuperStuffTest {
         assertEquals("El numero de Categorias es de" , 2, p.size());
 
     }
+    /*
+    @Test
+    public void ActualizarEstadoEnvio(){
+        List <Envio> e=(List<Envio>) repositorioEnvios.findAll().iterator();
+        assertEquals("El numero de Categorias es de" , 2, e.size());
+
+    }*/
     
 
 

@@ -17,7 +17,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface RepositorioEstadoEnvios extends CrudRepository<EstadoEnvio,Integer> {
     
-    @Query("UPDATE Envio e set e.estadoEnvios=:estadoEnvios where idEnvio= :idEnvio")
-    public void ActualizarEnvio(@Param("idEstadoEnvios") int idEstadoEnvios,@Param("lugares") String lugares);
+    @Query("UPDATE EstadoEnvio FROM EstadoEnvio es inner join es.envios en SET estado=:estado, descripcion=:descripcion, coordenadas=:coordenadas WHERE envios.idEnvio=:idEnvio")
+    public void ActualizarEnvio(@Param("idEnvio") int idEnvio,@Param("estado") String estado,@Param("descripcion") String descripcion,@Param("coordenadas") String coordenadas);
     
 }
