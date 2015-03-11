@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/pedido")
-public class RestPedido {
+public class PedidosController {
     
     @RequestMapping(value="/echo/{input}",method = RequestMethod.GET)        
     public ResponseEntity<?> consultaX(@PathVariable String input) {       
