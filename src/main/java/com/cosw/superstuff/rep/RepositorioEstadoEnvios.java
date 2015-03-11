@@ -6,6 +6,7 @@
 package com.cosw.superstuff.rep;
 
 import com.cosw.superstuff.persistencia.EstadoEnvio;
+import com.cosw.superstuff.persistencia.Lugar;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -20,9 +21,9 @@ public interface RepositorioEstadoEnvios extends CrudRepository<EstadoEnvio,Inte
     
     
     @Modifying
-    @Query("UPDATE EstadoEnvio e SET estado=:estado, descripcion=:descripcion, coordenadas=:coordenadas WHERE e.envios.idEnvio=:idEnvio")
+    @Query("UPDATE EstadoEnvio e SET estado=:estado, descripcion=:descripcion, coordenadas=:coordenadas, lugares=:lugar WHERE e.envios.idEnvio=:idEnvio")
     @Transactional
-    public void ActualizarEnvio(@Param("idEnvio") int idEnvio,@Param("estado") String estado,@Param("descripcion") String descripcion,@Param("coordenadas") String coordenadas);
+    public void ActualizarEnvio(@Param("idEnvio") int idEnvio,@Param("estado") String estado,@Param("descripcion") String descripcion,@Param("coordenadas") String coordenadas,@Param("lugar") Lugar lugar);
 
     
 }

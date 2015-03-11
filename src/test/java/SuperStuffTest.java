@@ -94,6 +94,7 @@ public class SuperStuffTest {
             Pais p1 = new Pais("Colombia", "COL", "ESPAÃ‘OL", Pais.SIHAYCOBERTURA);
             Set<Lugar> newPlaces = new LinkedHashSet<>();
             newPlaces.add(new Lugar(p1, "BogotÃ¡", "Cedritos"));
+            newPlaces.add(new Lugar(p1,"Bogota","Las Orquideas"));
             p1.setLugares(newPlaces);
             repositorioPaises.save(p1);
             repositorioPaises.save(new Pais("Francia", "PA", "FR", Pais.SIHAYCOBERTURA));
@@ -253,7 +254,7 @@ public class SuperStuffTest {
         Envio envio=repositorioEnvios.findOne(2);
         List<Lugar> lugares = (List<Lugar>)repositorioLugares.findAll();
         repositorioEstadoEnvios.save(new EstadoEnvio(envio, lugares.get(0), "OF", "En Oficina", "LAT 4°35'56''57 lON 74°04'51''30"));
-        repositorioEstadoEnvios.ActualizarEnvio(envio.getIdEnvio(), "CA", "En CAMINO", "LAT 5°35'56''57 lON 80°04'51''30");
+        repositorioEstadoEnvios.ActualizarEnvio(envio.getIdEnvio(), "CA", "En CAMINO", "LAT 5°35'56''57 lON 80°04'51''30",lugares.get(1));
         List<EstadoEnvio> es=(List<EstadoEnvio>)repositorioEstadoEnvios.findAll();
         assertEquals("El estado actual del envio 1 es en camino" ,"En CAMINO",es.get(0).getDescripcion() );
     }

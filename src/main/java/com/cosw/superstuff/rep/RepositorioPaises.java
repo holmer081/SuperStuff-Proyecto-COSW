@@ -13,6 +13,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author HOMERO
  */
-public interface RepositorioPaises extends CrudRepository<Pais, Integer>{
+public interface RepositorioPaises extends CrudRepository<Pais, String>{
     
 }
