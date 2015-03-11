@@ -10,6 +10,7 @@ import com.cosw.superstuff.persistencia.Descuento;
 import com.cosw.superstuff.persistencia.DetalleCompra;
 import com.cosw.superstuff.persistencia.DetalleCompraId;
 import com.cosw.superstuff.persistencia.Envio;
+import com.cosw.superstuff.persistencia.EstadoEnvio;
 import com.cosw.superstuff.persistencia.Lugar;
 import com.cosw.superstuff.persistencia.Pais;
 import com.cosw.superstuff.persistencia.Pedido;
@@ -18,6 +19,7 @@ import com.cosw.superstuff.persistencia.Proveedor;
 import com.cosw.superstuff.rep.RepositorioCategorias;
 import com.cosw.superstuff.rep.RepositorioDescuentos;
 import com.cosw.superstuff.rep.RepositorioEnvios;
+import com.cosw.superstuff.rep.RepositorioEstadoEnvios;
 import com.cosw.superstuff.rep.RepositorioLugares;
 import com.cosw.superstuff.rep.RepositorioPaises;
 import com.cosw.superstuff.rep.RepositorioPedidos;
@@ -77,6 +79,9 @@ public class SuperStuffTest {
     
     @Autowired
     private RepositorioEnvios repositorioEnvios;
+    
+    @Autowired
+    private RepositorioEstadoEnvios repositorioEstadoEnvios;
     
     private static boolean DATOSPREPARADOS = false;
     
@@ -241,13 +246,17 @@ public class SuperStuffTest {
         assertEquals("El numero de Categorias es de" , 2, p.size());
 
     }
-    /*
+    
     @Test
     public void ActualizarEstadoEnvio(){
-        List <Envio> e=(List<Envio>) repositorioEnvios.findAll().iterator();
-        assertEquals("El numero de Categorias es de" , 2, e.size());
-
-    }*/
+        repositorioEnvios.save(new Envio(new Date(System.currentTimeMillis())));
+        Envio envio=repositorioEnvios.findOne(2);
+        List<Lugar> lugares = (List<Lugar>)repositorioLugares.findAll();
+        repositorioEstadoEnvios.save(new EstadoEnvio(envio, lugares.get(0), "OF", "En Oficina", "LAT 4°35'56''57 lON 74°04'51''30"));
+        repositorioEstadoEnvios.ActualizarEnvio(envio.getIdEnvio(), "CA", "En CAMINO", "LAT 5°35'56''57 lON 80°04'51''30");
+        List<EstadoEnvio> es=(List<EstadoEnvio>)repositorioEstadoEnvios.findAll();
+        assertEquals("El estado actual del envio 1 es en camino" ,"En CAMINO",es.get(0).getDescripcion() );
+    }
     
 
 
