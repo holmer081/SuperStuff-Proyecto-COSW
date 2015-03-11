@@ -21,6 +21,6 @@ public interface RepositorioProductos extends CrudRepository<Producto, Integer>{
     @Query("SELECT p FROM Producto p inner join p.categoria c where c.idCategorias = :idCategoria")
     public List<Producto> productosPorCategoria(@Param("idCategoria") int idCategoria);
     
-    @Query("SELECT producto FROM Producto producto INNER JOIN producto.proveedores AS prv where prv.idProveedores =:id")
+    @Query("SELECT producto FROM Producto producto INNER JOIN producto.proveedores AS prv where prv.idProveedores = :idProveedor")
     public List<Producto> cargarProductosPorProveedor(@Param("idProveedor")int idProveedor);
 }

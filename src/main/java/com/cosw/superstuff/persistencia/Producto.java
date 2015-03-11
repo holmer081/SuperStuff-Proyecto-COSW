@@ -100,7 +100,7 @@ public class Producto  implements java.io.Serializable {
     }
 
     @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="Productos_has_MetaDatos", catalog="coswg3", joinColumns = { 
+    @JoinTable(name="Productos_has_MetaDatos", joinColumns = { 
         @JoinColumn(name="Productos_idProductos", nullable=false, updatable=false) }, inverseJoinColumns = { 
         @JoinColumn(name="MetaDatos_idMetaDatos", nullable=false, updatable=false) })
     public Set<MetaDato> getMetaDatos() {

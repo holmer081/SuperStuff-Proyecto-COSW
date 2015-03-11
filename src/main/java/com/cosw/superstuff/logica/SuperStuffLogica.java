@@ -130,10 +130,10 @@ public class SuperStuffLogica {
     /**
      * @author Camilo
      * Registra un nuevo pedido con los detalles de compra correspondiente
-     * @param direccionEnvio La direccion del envio
-     * @param fechaLlegada La fecha en la que deberia llegar el producto
-     * @param producto La lista de los productos
-     * @param cantidad Las cantidades
+     * @param direccion La direccion del envio
+     * @param fecha La fecha en la que deberia llegar el producto
+     * @param idProductos La lista de los productos
+     * @param cantidades Las cantidades
      * @return El id del nuevo pedido registrado
      * @throws java.lang.Exception En caso de que las cantidades no correspondan a los productos
      */
