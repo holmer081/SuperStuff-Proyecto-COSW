@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cosw.superstuff.rest.pedido;
+package com.cosw.superstuff.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
