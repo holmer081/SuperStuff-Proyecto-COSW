@@ -91,7 +91,7 @@
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.apache.directory.studio</groupId>
+            <groupId>org.apache.directory.studio </groupId>
             <artifactId>org.apache.commons.collections</artifactId>
             <version>3.2.1</version>
         </dependency>
