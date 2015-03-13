@@ -90,27 +90,27 @@ public class SuperStuffTest {
     
     @Before
     public void setUp() {
+        repositorioLugares.deleteAll();
+        repositorioCategorias.deleteAll();
+        repositorioDescuentos.deleteAll();
+        repositorioEnvios.deleteAll();
+        repositorioEstadoEnvios.deleteAll();
+        repositorioLugares.deleteAll();
+        repositorioPedidos.deleteAll();
+        repositorioProductos.deleteAll();
+        repositorioProveedores.deleteAll();
+        /*
         if(!DATOSPREPARADOS) {
-            Pais p1 = new Pais("Colombia", "COL", "ESPAÃ‘OL", Pais.SIHAYCOBERTURA);
-            Set<Lugar> newPlaces = new LinkedHashSet<>();
-            newPlaces.add(new Lugar(p1, "BogotÃ¡", "Cedritos"));
-            newPlaces.add(new Lugar(p1,"Bogota","Las Orquideas"));
-            p1.setLugares(newPlaces);
-            repositorioPaises.save(p1);
-            repositorioPaises.save(new Pais("Francia", "PA", "FR", Pais.SIHAYCOBERTURA));
+            
+            
+            
             
             repositorioCategorias.save(new Categoria(1, "Frutas", "Categoria que agrupa las frutas"));
             repositorioCategorias.save(new Categoria(100, "Alcohol", "Categoria que agrupa Bebidas Alcoholicas"));
             repositorioDescuentos.save(new Descuento(0, new Date(), new Date(), "Esto es un descuento del 0%"));
             repositorioDescuentos.save(new Descuento(100, new Date(), new Date(), "Esto es un descuento del 10%"));
             
-            List<Lugar> lugares = (List<Lugar>)repositorioLugares.findAll();
-            superStuff.crearNuevoProveedor(new Proveedor(1, lugares.get(0), "Licorera El Tio Moe", "Calle Falsa 123", "3044463405", "www.eltiomoe.com", "eltiomoe@mail.com"));
-            superStuff.crearNuevoProveedor(new Proveedor(2, lugares.get(0), "Jabones Mr. Chispa", "Calle Falsa 121", "3044463404", "www.mrchispa.com", "mrchispa@mail.com"));
-            superStuff.crearNuevoProveedor(new Proveedor(3, lugares.get(0), "Alpina", "Calle Falsa 124", "3045463402", "www.prueba.com", "prueba@mail.com"));
-            superStuff.crearNuevoProveedor(new Proveedor(4, lugares.get(0), "Ramo", "Calle Falsa 125", "3045463403", "www.prueba.com", "prueba@mail.com"));
-            superStuff.crearNuevoProveedor(new Proveedor(5, lugares.get(0), "Telas ECI", "Calle Falsa 126", "3045463404", "www.prueba.com", "prueba@mail.com"));
-            superStuff.crearNuevoProveedor(new Proveedor(6, lugares.get(0), "Lacteos ECI", "Calle Falsa 127", "3045463405", "www.prueba.com", "prueba@mail.com"));     
+                
 
             
             Categoria c = repositorioCategorias.findOne(1);
@@ -138,6 +138,7 @@ public class SuperStuffTest {
             repositorioProductos.save(new Producto(12, c1, d1, "F", pr6, 1000000));
         }
         DATOSPREPARADOS = true;
+        */
     }
     
     @After
@@ -149,10 +150,31 @@ public class SuperStuffTest {
      */
     @Test
     public void crearNuevoProveedorTest(){
+        Pais p1 = new Pais("Colombia", "COL", "ESPAÃ‘OL", Pais.SIHAYCOBERTURA);
+        Pais p2 = new Pais("Colombia", "COL", "ESPAÃ‘OL", Pais.SIHAYCOBERTURA);
+        
+        Set<Lugar> newPlaces = new LinkedHashSet<>();
+        newPlaces.add(new Lugar(p1, "BogotÃ¡", "Cedritos"));
+        newPlaces.add(new Lugar(p1,"Bogota","Las Orquideas"));
+        
+        p1.setLugares(newPlaces);
+        repositorioPaises.save(p1);
+        repositorioPaises.save(p2);
+        
+        List<Lugar> lugares = (List<Lugar>)repositorioLugares.findAll();
+        
+        superStuff.crearNuevoProveedor(new Proveedor(1, lugares.get(0), "Licorera El Tio Moe", "Calle Falsa 123", "3044463405", "www.eltiomoe.com", "eltiomoe@mail.com"));
+        superStuff.crearNuevoProveedor(new Proveedor(2, lugares.get(0), "Jabones Mr. Chispa", "Calle Falsa 121", "3044463404", "www.mrchispa.com", "mrchispa@mail.com"));
+        superStuff.crearNuevoProveedor(new Proveedor(3, lugares.get(0), "Alpina", "Calle Falsa 124", "3045463402", "www.prueba.com", "prueba@mail.com"));
+        superStuff.crearNuevoProveedor(new Proveedor(4, lugares.get(0), "Ramo", "Calle Falsa 125", "3045463403", "www.prueba.com", "prueba@mail.com"));
+        superStuff.crearNuevoProveedor(new Proveedor(5, lugares.get(0), "Telas ECI", "Calle Falsa 126", "3045463404", "www.prueba.com", "prueba@mail.com"));
+        superStuff.crearNuevoProveedor(new Proveedor(6, lugares.get(0), "Lacteos ECI", "Calle Falsa 127", "3045463405", "www.prueba.com", "prueba@mail.com"));
+            
         List<Proveedor> proveedores = superStuff.cargarTodosLosProveedores();
         assertEquals("La clase logica ha cargado 6 proveedores?", 6, proveedores.size());
     }
     
+    /*
     @Test
     public void registrarProductoTest(){                
         Proveedor p = repositorioProveedores.findOne(1);
@@ -216,18 +238,27 @@ public class SuperStuffTest {
     
     @Test
     public void registrarNuevoEnvio() {
+        int[] idProductos = {1,2,3,4,5};
+        int[] cantidades = {20,15,5,40,10};
+        
+        int[] idProductos2 = {6,7,8,9};
+        int[] cantidades2 = {10,20,30,40};
+        
+        try {
+            int ped1 = superStuff.registrarPedido("Calle 159a #13a-46", new Date(), idProductos, cantidades);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
         Iterator<Pedido> myIterator = repositorioPedidos.findAll().iterator();
         List<Pedido> myList = IteratorUtils.toList(myIterator);
         Set<Pedido> pedidos = new HashSet<>(myList);
         
-        superStuff.registrarEnvio(pedidos);
+        int i = superStuff.registrarEnvio(pedidos);
         
-        Iterator<Envio> iterator = repositorioEnvios.findAll().iterator();
-        List<Envio> envios = IteratorUtils.toList(iterator);
+        Envio envio = repositorioEnvios.findOne(i);
         
-        Envio envio = repositorioEnvios.findAll().iterator().next();
         assertEquals("El numero de pedidos registrados fue de 2", 2, envio.getPedidos().size());
-        
     }
     @Test
     public void ConsultarProductosPorCategoria(){
@@ -250,8 +281,15 @@ public class SuperStuffTest {
     
     @Test
     public void ActualizarEstadoEnvio(){
+        Iterator<Pedido> myIterator = repositorioPedidos.findAll().iterator();
+        List<Pedido> myList = IteratorUtils.toList(myIterator);
+        Set<Pedido> pedidos = new HashSet<>(myList);
+        
+        int i = superStuff.registrarEnvio(pedidos);
+        
+        Envio envio = repositorioEnvios.findOne(i);
+        
         repositorioEnvios.save(new Envio(new Date(System.currentTimeMillis())));
-        Envio envio=repositorioEnvios.findOne(2);
         List<Lugar> lugares = (List<Lugar>)repositorioLugares.findAll();
         repositorioEstadoEnvios.save(new EstadoEnvio(envio, lugares.get(0), "OF", "En Oficina", "LAT 4°35'56''57 lON 74°04'51''30"));
         repositorioEstadoEnvios.ActualizarEnvio(envio.getIdEnvio(), "CA", "En CAMINO", "LAT 5°35'56''57 lON 80°04'51''30",lugares.get(1));
@@ -259,6 +297,6 @@ public class SuperStuffTest {
         assertEquals("El estado actual del envio 1 es en camino" ,"En CAMINO",es.get(0).getDescripcion() );
     }
     
-
+    */
 
 }

@@ -72,7 +72,7 @@ public class Envio  implements java.io.Serializable {
         this.estadoEnvios = estadoEnvioses;
     }
 
-    @OneToMany(fetch=FetchType.LAZY, targetEntity = Pedido.class, cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER, targetEntity = Pedido.class)
     @JoinColumn(name="Envios_idEnvio")
     public Set<Pedido> getPedidos() {
         return this.pedidos;
