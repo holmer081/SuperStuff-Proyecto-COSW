@@ -18,6 +18,7 @@ import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Proveedor;
 import com.cosw.superstuff.rep.RepositorioCategorias;
 import com.cosw.superstuff.rep.RepositorioDescuentos;
+import com.cosw.superstuff.rep.RepositorioDetalleCompra;
 import com.cosw.superstuff.rep.RepositorioEnvios;
 import com.cosw.superstuff.rep.RepositorioEstadoEnvios;
 import com.cosw.superstuff.rep.RepositorioLugares;
@@ -60,6 +61,9 @@ public class SuperStuffTest {
     private RepositorioLugares repositorioLugares;
     
     @Autowired
+    private RepositorioDetalleCompra repositorioDetalleCompra;
+    
+    @Autowired
     private RepositorioPaises repositorioPaises;
     
     @Autowired
@@ -90,15 +94,17 @@ public class SuperStuffTest {
     
     @Before
     public void setUp() {
-        repositorioLugares.deleteAll();
-        repositorioCategorias.deleteAll();
-        repositorioDescuentos.deleteAll();
-        repositorioEnvios.deleteAll();
-        repositorioEstadoEnvios.deleteAll();
-        repositorioLugares.deleteAll();
-        repositorioPedidos.deleteAll();
+                
+        repositorioDetalleCompra.deleteAll();
         repositorioProductos.deleteAll();
         repositorioProveedores.deleteAll();
+        repositorioCategorias.deleteAll();
+        repositorioDescuentos.deleteAll();
+        repositorioEstadoEnvios.deleteAll();
+        repositorioEnvios.deleteAll();
+        repositorioPedidos.deleteAll();
+        repositorioPaises.deleteAll();
+        repositorioLugares.deleteAll();
         /*
         if(!DATOSPREPARADOS) {
             
@@ -214,13 +220,58 @@ public class SuperStuffTest {
     public void crearNuevoTenderoTest(){
         
     }
+    */
+    
     
     @Test
     public void registrarPedido() {
+        Pais p1 = new Pais("Colombia", "COL", "ESPAÃ‘OL", Pais.SIHAYCOBERTURA);
+        Pais p2 = new Pais("Colombia", "COL", "ESPAÃ‘OL", Pais.SIHAYCOBERTURA);
+        
+        Set<Lugar> newPlaces = new LinkedHashSet<>();
+        newPlaces.add(new Lugar(p1, "BogotÃ¡", "Cedritos"));
+        newPlaces.add(new Lugar(p1,"Bogota","Las Orquideas"));
+        
+        p1.setLugares(newPlaces);
+        repositorioPaises.save(p1);
+        repositorioPaises.save(p2);
+        
+        List<Lugar> lugares = (List<Lugar>)repositorioLugares.findAll();
+        Proveedor pr1 = new Proveedor(1, lugares.get(0), "Licorera El Tio Moe", "Calle Falsa 123", "3044463405", "www.eltiomoe.com", "eltiomoe@mail.com");
+        Proveedor pr2 = new Proveedor(2, lugares.get(0), "Jabones Mr. Chispa", "Calle Falsa 121", "3044463404", "www.mrchispa.com", "mrchispa@mail.com");
+        Proveedor pr3 = new Proveedor(3, lugares.get(0), "Alpina", "Calle Falsa 124", "3045463402", "www.prueba.com", "prueba@mail.com");
+        Proveedor pr4 = new Proveedor(4, lugares.get(0), "Ramo", "Calle Falsa 125", "3045463403", "www.prueba.com", "prueba@mail.com");
+        Proveedor pr5 = new Proveedor(5, lugares.get(0), "Telas ECI", "Calle Falsa 126", "3045463404", "www.prueba.com", "prueba@mail.com");
+        Proveedor pr6 = new Proveedor(6, lugares.get(0), "Lacteos ECI", "Calle Falsa 127", "3045463405", "www.prueba.com", "prueba@mail.com");
+        
+        superStuff.crearNuevoProveedor(pr1);
+        superStuff.crearNuevoProveedor(pr2);
+        superStuff.crearNuevoProveedor(pr3);
+        superStuff.crearNuevoProveedor(pr4);
+        superStuff.crearNuevoProveedor(pr5);
+        superStuff.crearNuevoProveedor(pr6);
+
+        Categoria c1 = new Categoria(1, "Frutas", "Categoria que agrupa las frutas");
+        Categoria c2 = new Categoria(2, "Alcohol", "Categoria que agrupa Bebidas Alcoholicas");
+        Descuento d1 = new Descuento(0, new Date(), new Date(), "Esto es un descuento del 0%");
+        Descuento d2 = new Descuento(50, new Date(), new Date(), "Esto es un descuento del 50%");
+        
+        repositorioCategorias.save(c1);
+        repositorioCategorias.save(c2);
+        repositorioDescuentos.save(d1);
+        repositorioDescuentos.save(d2);
+        
+        repositorioProductos.save(new Producto(1, c1, d1, "Jack Daniel´s Whiskey Old Time", pr1, 1000000));
+        repositorioProductos.save(new Producto(2, c1, d1, "Cerveza Aguila", pr2, 1000000));
+        repositorioProductos.save(new Producto(3, c1, d1, "Aguardiente Antioqueño", pr3, 1000000));
+        repositorioProductos.save(new Producto(4, c1, d1, "Vino Cariñoso", pr4, 1000000));
+        repositorioProductos.save(new Producto(5, c1, d1, "Aguardiente Blanco del Valle Ice", pr5, 1000000));
+        repositorioProductos.save(new Producto(6, c1, d1, "Baileys Irish Cream", pr6, 1000000));
+        
         int[] idProductos = {1,2,3,4,5};
         int[] cantidades = {20,15,5,40,10};
         
-        int[] idProductos2 = {6,7,8,9};
+        int[] idProductos2 = {3,4,6,1};
         int[] cantidades2 = {10,20,30,40};
         
         try {
@@ -236,16 +287,62 @@ public class SuperStuffTest {
         assertEquals("El numero de pedidos registrados fue de 2", 2, myList.size());
     }
     
+    
+    
     @Test
     public void registrarNuevoEnvio() {
+        Pais p1 = new Pais("Colombia", "COL", "ESPAÃ‘OL", Pais.SIHAYCOBERTURA);
+        Pais p2 = new Pais("Colombia", "COL", "ESPAÃ‘OL", Pais.SIHAYCOBERTURA);
+        
+        Set<Lugar> newPlaces = new LinkedHashSet<>();
+        newPlaces.add(new Lugar(p1, "BogotÃ¡", "Cedritos"));
+        newPlaces.add(new Lugar(p1,"Bogota","Las Orquideas"));
+        
+        p1.setLugares(newPlaces);
+        repositorioPaises.save(p1);
+        repositorioPaises.save(p2);
+        
+        List<Lugar> lugares = (List<Lugar>)repositorioLugares.findAll();
+        Proveedor pr1 = new Proveedor(1, lugares.get(0), "Licorera El Tio Moe", "Calle Falsa 123", "3044463405", "www.eltiomoe.com", "eltiomoe@mail.com");
+        Proveedor pr2 = new Proveedor(2, lugares.get(0), "Jabones Mr. Chispa", "Calle Falsa 121", "3044463404", "www.mrchispa.com", "mrchispa@mail.com");
+        Proveedor pr3 = new Proveedor(3, lugares.get(0), "Alpina", "Calle Falsa 124", "3045463402", "www.prueba.com", "prueba@mail.com");
+        Proveedor pr4 = new Proveedor(4, lugares.get(0), "Ramo", "Calle Falsa 125", "3045463403", "www.prueba.com", "prueba@mail.com");
+        Proveedor pr5 = new Proveedor(5, lugares.get(0), "Telas ECI", "Calle Falsa 126", "3045463404", "www.prueba.com", "prueba@mail.com");
+        Proveedor pr6 = new Proveedor(6, lugares.get(0), "Lacteos ECI", "Calle Falsa 127", "3045463405", "www.prueba.com", "prueba@mail.com");
+        
+        superStuff.crearNuevoProveedor(pr1);
+        superStuff.crearNuevoProveedor(pr2);
+        superStuff.crearNuevoProveedor(pr3);
+        superStuff.crearNuevoProveedor(pr4);
+        superStuff.crearNuevoProveedor(pr5);
+        superStuff.crearNuevoProveedor(pr6);
+
+        Categoria c1 = new Categoria(1, "Frutas", "Categoria que agrupa las frutas");
+        Categoria c2 = new Categoria(2, "Alcohol", "Categoria que agrupa Bebidas Alcoholicas");
+        Descuento d1 = new Descuento(0, new Date(), new Date(), "Esto es un descuento del 0%");
+        Descuento d2 = new Descuento(50, new Date(), new Date(), "Esto es un descuento del 50%");
+        
+        repositorioCategorias.save(c1);
+        repositorioCategorias.save(c2);
+        repositorioDescuentos.save(d1);
+        repositorioDescuentos.save(d2);
+        
+        repositorioProductos.save(new Producto(1, c1, d1, "Jack Daniel´s Whiskey Old Time", pr1, 1000000));
+        repositorioProductos.save(new Producto(2, c1, d1, "Cerveza Aguila", pr2, 1000000));
+        repositorioProductos.save(new Producto(3, c1, d1, "Aguardiente Antioqueño", pr3, 1000000));
+        repositorioProductos.save(new Producto(4, c1, d1, "Vino Cariñoso", pr4, 1000000));
+        repositorioProductos.save(new Producto(5, c1, d1, "Aguardiente Blanco del Valle Ice", pr5, 1000000));
+        repositorioProductos.save(new Producto(6, c1, d1, "Baileys Irish Cream", pr6, 1000000));
+        
         int[] idProductos = {1,2,3,4,5};
         int[] cantidades = {20,15,5,40,10};
         
-        int[] idProductos2 = {6,7,8,9};
+        int[] idProductos2 = {3,4,6,1};
         int[] cantidades2 = {10,20,30,40};
         
         try {
-            int ped1 = superStuff.registrarPedido("Calle 159a #13a-46", new Date(), idProductos, cantidades);
+            superStuff.registrarPedido("Calle 159a #13a-46", new Date(), idProductos, cantidades);
+            superStuff.registrarPedido("Calle 142 #13-62", new Date(), idProductos2, cantidades2);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -260,6 +357,9 @@ public class SuperStuffTest {
         
         assertEquals("El numero de pedidos registrados fue de 2", 2, envio.getPedidos().size());
     }
+    
+    /*
+    
     @Test
     public void ConsultarProductosPorCategoria(){
         List<Producto> p=superStuff.cargarProductosPorCategoria(100);
