@@ -393,6 +393,12 @@ public class SuperStuffTest {
         assertEquals("El numero de pedidos registrados fue de 2", 2, envio.getPedidos().size());
     }
     
+    @Test
+    public void ConsultarProductosPorCategoria(){
+        /*List<Producto> p=superStuff.cargarProductosPorCategoria(100);
+        assertEquals("El numero de productos de la categoria 100 es de 12" , 12, p.size());*/
+
+    }
     /*
     
     @Test
