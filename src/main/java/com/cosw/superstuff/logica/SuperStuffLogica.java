@@ -241,4 +241,13 @@ public class SuperStuffLogica {
     public List<Proveedor> cargarTodosLosProveedores(){
         return (List<Proveedor>) repositorioProveedores.findAll();
     }
+
+    /**
+     * @Author Holmer
+     * Crea un nuevo tendero
+     * @param t 
+     */
+    public void crearNuevoTendero(Tendero t) {
+       repositorioTenderos.save(t);
+    }
 }
