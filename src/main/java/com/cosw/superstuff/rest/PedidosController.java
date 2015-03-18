@@ -5,6 +5,12 @@
  */
 package com.cosw.superstuff.rest;
 
+import com.cosw.superstuff.logica.SuperStuffLogica;
+import com.cosw.superstuff.persistencia.Pedido;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +26,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pedido")
 public class PedidosController {
     
-    @RequestMapping(value="/echo/{input}",method = RequestMethod.GET)        
-    public ResponseEntity<?> consultaX(@PathVariable String input) {       
-        return new ResponseEntity<>("REST API working. Echo:"+input,HttpStatus.ACCEPTED);
+    @Autowired
+    SuperStuffLogica superStuff;
+    
+    @RequestMapping(value="/",method = RequestMethod.POST)
+    public ResponseEntity<?> persist(@PathVariable("direccion") String direccion, 
+                                     @PathVariable("fecha") Date fecha,
+                                     @PathVariable("productos") int[] productos,
+                                     @PathVariable("cantidades") int[] cantidades) {  
+        
+        try {
+            superStuff.registrarPedido(direccion, fecha, productos, cantidades);
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
+        } catch (Exception ex) {
+            Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

@@ -175,11 +175,15 @@ public class SuperStuffLogica {
     /**
      * @author Camilo
      * Registra un nuevo envio
-     * @param pedidos Los pedidos asociados a este envio
+     * @param idPedidos Los pedidos asociados a este envio
      * @return El id del nuevo envio registrado
      */
-    public int registrarEnvio(Set pedidos){
+    public int registrarEnvio(int[] idPedidos){
         Envio envio = new Envio(new Date());
+        Set<Pedido> pedidos = new HashSet<>();
+        for (int idP : idPedidos) {
+            pedidos.add(repositorioPedidos.findOne(idP));
+        }
         envio.setPedidos(pedidos);
         repositorioEnvios.save(envio);
         return envio.getIdEnvio();

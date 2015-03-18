@@ -397,9 +397,13 @@ public class SuperStuffTest {
         
         Iterator<Pedido> myIterator = repositorioPedidos.findAll().iterator();
         List<Pedido> myList = IteratorUtils.toList(myIterator);
-        Set<Pedido> pedidos = new HashSet<>(myList);
+        int[] idPedidos = new int[myList.size()];
         
-        int i = superStuff.registrarEnvio(pedidos);
+        for (int i = 0; i < myList.size(); i++) {
+            idPedidos[i] = myList.get(i).getIdPedidos();
+        }
+        
+        int i = superStuff.registrarEnvio(idPedidos);
         
         Envio envio = repositorioEnvios.findOne(i);
         
