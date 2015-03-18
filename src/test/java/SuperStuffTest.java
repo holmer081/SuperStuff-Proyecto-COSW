@@ -16,6 +16,7 @@ import com.cosw.superstuff.persistencia.Pais;
 import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Proveedor;
+import com.cosw.superstuff.persistencia.Tendero;
 import com.cosw.superstuff.rep.RepositorioCategorias;
 import com.cosw.superstuff.rep.RepositorioDescuentos;
 import com.cosw.superstuff.rep.RepositorioDetalleCompra;
@@ -26,6 +27,7 @@ import com.cosw.superstuff.rep.RepositorioPaises;
 import com.cosw.superstuff.rep.RepositorioPedidos;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
+import com.cosw.superstuff.rep.RepositorioTenderos;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -86,6 +88,9 @@ public class SuperStuffTest {
     
     @Autowired
     private RepositorioEstadoEnvios repositorioEstadoEnvios;
+    
+    @Autowired
+    private RepositorioTenderos repositorioTenderos;
     
     private static boolean DATOSPREPARADOS = false;
     
@@ -208,7 +213,15 @@ public class SuperStuffTest {
      */
     @Test
     public void crearNuevoTenderoTest(){
-        
+        repositorioTenderos.save(new Tendero(1, "Homero J Simpson"));
+        repositorioTenderos.save(new Tendero(2, "Marge Simpson"));
+        repositorioTenderos.save(new Tendero(3, "Lisa Simpson"));
+        repositorioTenderos.save(new Tendero(4, "Bart Simpson"));
+        repositorioTenderos.save(new Tendero(5, "Nelson Muntz"));
+        repositorioTenderos.save(new Tendero(6, "Seymour Skinner"));
+        repositorioTenderos.save(new Tendero(7, "Moe Szyslak"));
+        List<Tendero> tenderos = (List<Tendero>)repositorioTenderos.findAll();
+        assertEquals("Hay 7 tenderos?", 7, tenderos.size());
     }
     
     /**

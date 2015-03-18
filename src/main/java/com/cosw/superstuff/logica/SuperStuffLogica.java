@@ -196,7 +196,6 @@ public class SuperStuffLogica {
      */
     public void actualizarEstadoDeEnvio(int idEnvio, Lugar lugar, String estado, String descripcion, String coords){
         repositorioEstadoEnvios.ActualizarEnvio(idEnvio,estado,descripcion,coords,lugar);
-        
     }
     
     /**
