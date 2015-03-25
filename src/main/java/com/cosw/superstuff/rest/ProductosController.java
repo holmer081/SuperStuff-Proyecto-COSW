@@ -54,4 +54,11 @@ public class ProductosController {
         superStuff.registrarProducto(idProducto, proveedor, categoria, descuento, precio, descripcion);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    
+    @RequestMapping(value="/",method = RequestMethod.GET) 
+    public List<Producto> cargarProductos() {
+        List<Producto> productos = null;
+        productos = superStuff.cargarTodosLosProductos();
+        return productos;
+    }
 }
