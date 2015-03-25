@@ -37,9 +37,21 @@ public class ProductosController {
         return productos;
     }
     
-    @RequestMapping(value="/",method = RequestMethod.POST)
+    /*@RequestMapping(value="/",method = RequestMethod.POST)
     public ResponseEntity<?> persist(@RequestBody Producto p) {
         superStuff.registrarProducto(p);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }*/
+    
+    @RequestMapping(value="/",method = RequestMethod.POST)
+    public ResponseEntity<?> persist(@PathVariable("id") int idProducto, 
+                                     @PathVariable("proveedor") int proveedor, 
+                                     @PathVariable("categoria") int categoria, 
+                                     @PathVariable("descuento") int descuento,
+                                     @PathVariable("precio") int precio,
+                                     @PathVariable("descripcion") String descripcion) {
+        
+        superStuff.registrarProducto(idProducto, proveedor, categoria, descuento, precio, descripcion);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,9 +27,22 @@ public class ProveedoresController {
     @Autowired
     SuperStuffLogica superStuff;
     
-    @RequestMapping(value="/",method = RequestMethod.POST)
+    /*RequestMapping(value="/",method = RequestMethod.POST)
     public ResponseEntity<?> persist(@RequestBody Proveedor p) {
         superStuff.crearNuevoProveedor(p);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }*/
+    
+    @RequestMapping(value="/",method = RequestMethod.POST)
+    public ResponseEntity<?> persist(@PathVariable("id") int idProveedores, 
+                                     @PathVariable("idLugar") int idLugar, 
+                                     @PathVariable("razonSocial") String razonSocial,
+                                     @PathVariable("direccion") String direccion,
+                                     @PathVariable("telefono") String contactoTelefonico,
+                                     @PathVariable("sitioWeb") String sitioWeb,
+                                     @PathVariable("email") String email) {
+ 
+        superStuff.crearNuevoProveedor(idProveedores, idLugar, razonSocial, direccion, contactoTelefonico, sitioWeb, email);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

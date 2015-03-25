@@ -220,6 +220,10 @@ public class SuperStuffLogica {
         return p.getIdProveedores();
     }
     
+    public void crearNuevoProveedor(int idProveedores, int idLugar, String razonSocial, String direccion, String contactoTelefonico, String sitioWeb, String email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     /**
      * @Author Holmer
      * Crea un nuevo proveedor

@@ -11,6 +11,7 @@ import com.cosw.superstuff.persistencia.Tendero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +30,14 @@ public class TenderosController {
     @RequestMapping(value="/",method = RequestMethod.POST)
     public ResponseEntity<?> persist(@RequestBody Tendero t) {
         superStuff.crearNuevoTendero(t);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
+    @RequestMapping(value="/",method = RequestMethod.POST)
+    public ResponseEntity<?> persist(@PathVariable("id") int idTendero, 
+                                     @PathVariable("nombre") String nombre) {
+
+        superStuff.crearNuevoTendero(idTendero, nombre);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
