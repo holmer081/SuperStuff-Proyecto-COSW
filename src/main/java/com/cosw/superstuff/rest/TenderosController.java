@@ -9,6 +9,7 @@ import com.cosw.superstuff.logica.SuperStuffLogica;
 import com.cosw.superstuff.persistencia.Proveedor;
 import com.cosw.superstuff.persistencia.Tendero;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,11 @@ public class TenderosController {
                                      @PathVariable("nombre") String nombre) {
 
         superStuff.crearNuevoTendero(idTendero, nombre);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
+        ResponseEntity<Object> res = new ResponseEntity<>(headers, HttpStatus.CREATED);
+        
+        return res;
     }
 }
