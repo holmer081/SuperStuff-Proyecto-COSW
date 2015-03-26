@@ -27,11 +27,11 @@ public class TenderosController {
     @Autowired
     SuperStuffLogica superStuff;
     
-    @RequestMapping(value="/",method = RequestMethod.POST)
+    /*@RequestMapping(value="/",method = RequestMethod.POST)
     public ResponseEntity<?> persist(@RequestBody Tendero t) {
         superStuff.crearNuevoTendero(t);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+    }*/
     
     @RequestMapping(value="/",method = RequestMethod.POST)
     public ResponseEntity<?> persist(@PathVariable("id") int idTendero, 
