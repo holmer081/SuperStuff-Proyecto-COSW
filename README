@@ -1,3 +1,15 @@
+--Descripción del Proyecto: Nuestra idea está dirigida a los proveedores de productos para tiendas. 
+			    Se quiere que los proveedores publiquen sus productos de tal manera que los tenderos 
+			    tengan la posibilidad de hacer las compras que ellos desean a través de la plataforma
+			    y de que los productos lleguen a su destino correspondiente en un solo envio, 
+			    teniendo en cuenta que debe existir compromiso económico por parte del tendero y 
+			    compromiso con la disposición de los productos por parte del proveedor.
+
+
+--Integrantes: Camilo Andrés White
+	       Holmer Alexander Gaitán
+
+
 --URL del proyecto: superstuff.heroku.com
 
 --Servicios REST:
@@ -93,6 +105,7 @@
 				"productos":null
 		}
 	}
+
 ]
 
 --Cargar Productos
