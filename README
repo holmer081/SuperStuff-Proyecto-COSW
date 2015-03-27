@@ -32,5 +32,46 @@
 --Registrar Envio:
 --http://superstuff.heroku.com/rest/envio/
 --JSON:
-{"idEnvio":123,"fechaSalida":"2015-03-14","estadoEnvios":null,"pedidos":null}
+{	"idEnvio":123,
+	"fechaSalida":"2015-03-14",
+	"estadoEnvios":null,
+	"pedidos":null
+}
 
+--Registrar Tendero
+--http://superstuff.heroku.com/rest/tenderos
+--JSON:
+{	"idTEnderos":0180002700,
+	"nombre":"Bart Simpson",
+	"reputacion":null,
+	"tiendas":null
+}
+
+--Registrar Proveedor
+--http://superstuff.heroku.com/rest/proveedores
+--JSON:
+{
+	"idProveedores":0180002700,
+	"lugares":null,
+	"razonSocial":"Vendemos Cosas",
+	"direccion":"Calle falsa 123",
+	"contactoTelefonico":"3164559420",
+	"sitioWeb":"www.prueba.com",
+	"email":"prueba@mail.com",
+	"productos":null
+}
+
+--Consultar Productos por Proveedor
+--http://superstuff.heroku.com/rest/
+--JSON:
+[
+	{
+		"idProductos":1,
+		"categoria":null,
+		"descuentos":{"idPromociones":80,"porcentaje":0,"fechaInicio":"2015-03-14","fechaFinal":"2015-07-14","descripcion":"Precio Base"},
+		"descripcion":"Cerveza Aguila",
+		"precioLista":30000,
+		"metaDatos":null,
+		"proveedores":null
+	}
+]
