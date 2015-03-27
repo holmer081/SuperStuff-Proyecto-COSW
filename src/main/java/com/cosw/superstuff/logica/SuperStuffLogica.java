@@ -20,7 +20,6 @@ import com.cosw.superstuff.rep.RepositorioDescuentos;
 import com.cosw.superstuff.rep.RepositorioDetalleCompra;
 import com.cosw.superstuff.rep.RepositorioEnvios;
 import com.cosw.superstuff.rep.RepositorioEstadoEnvios;
-//import com.cosw.superstuff.rep.RepositorioEstadoEnvios;
 import com.cosw.superstuff.rep.RepositorioPedidos;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
@@ -33,7 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * Representa la clase logica
  * @author HOMERO
  */
 @Service
@@ -246,6 +245,9 @@ public class SuperStuffLogica {
         repositorioTenderos.save(t);
     }
     
+    /**
+     * Carga todos los proveedores
+     */
     public List<Proveedor> cargarTodosLosProveedores(){
         return (List<Proveedor>) repositorioProveedores.findAll();
     }
@@ -253,25 +255,41 @@ public class SuperStuffLogica {
     /**
      * @Author Holmer
      * Crea un nuevo tendero
-     * @param t 
+     * @param t n
      */
     public void crearNuevoTendero(Tendero t) {
        repositorioTenderos.save(t);
     }
 
+    /**
+     * Guarda un pedido en la base de datos
+     * @param pedido 
+     */
     public void registrarPedido(Pedido pedido) {
        repositorioPedidos.save(pedido);
     }
     
+    /**
+     * Guarda un envio en la base de datos
+     * @param envio 
+     */
     public void registrarEnvio(Envio envio) {
         repositorioEnvios.save(envio);
     }
 
-    
+    /**
+     * Carga un envio por su identificador
+     * @param id
+     * @return 
+     */
     public Envio cargarEnvioPorId(int id) {
         return repositorioEnvios.findOne(id);
     }
     
+    /**
+     * Retorna una lista con todos los tenderos
+     * @return lista de tenderos
+     */
     public List<Tendero> cargarTenderos() {
         return (List<Tendero>) repositorioTenderos.findAll();
     }

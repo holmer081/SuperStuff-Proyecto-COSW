@@ -62,16 +62,69 @@
 }
 
 --Consultar Productos por Proveedor
---http://superstuff.heroku.com/rest/
+--http://superstuff.heroku.com/rest/productos/proveedor/1
 --JSON:
 [
 	{
 		"idProductos":1,
-		"categoria":null,
-		"descuentos":{"idPromociones":80,"porcentaje":0,"fechaInicio":"2015-03-14","fechaFinal":"2015-07-14","descripcion":"Precio Base"},
+		"categoria":{
+				"idCategorias":2,
+				"categoria":"Bebidas Alcohólicas",
+				"descripcion":"Productos relacionados con bebidas alcholicas"
+		},
+		"descuentos":{
+				"idPromociones":80,
+				"porcentaje":0,
+				"fechaInicio":"2015-03-14",
+				"fechaFinal":"2015-07-14",
+				"descripcion":"Precio Base"
+		},
 		"descripcion":"Cerveza Aguila",
 		"precioLista":30000,
-		"metaDatos":null,
-		"proveedores":null
+		"metaDatos":[],
+		"proveedores":{
+				"idProveedores":1,
+				"lugares":null,
+				"razonSocial":"Distribuidora Alcohol Express",
+				"direccion":"Calle Falsa 123",
+				"contactoTelefonico":"1800127000",
+				"sitioWeb":"www.alcohol.com",
+				"email":"prueba@mail.com",
+				"productos":null
+		}
+	}
+]
+
+--Cargar Productos
+--http://superstuff.heroku.com/rest/productos
+--JSON:
+[
+	{
+		"idProductos":1,
+		"categoria":{
+				"idCategorias":2,
+				"categoria":"Bebidas Alcohólicas",
+				"descripcion":"Productos relacionados con bebidas alcholicas"
+		},
+		"descuentos":{
+				"idPromociones":80,
+				"porcentaje":0,
+				"fechaInicio":"2015-03-14",
+				"fechaFinal":"2015-07-14",
+				"descripcion":"Precio Base"
+		},
+		"descripcion":"Cerveza Aguila",
+		"precioLista":30000,
+		"metaDatos":[],
+		"proveedores":{
+				"idProveedores":1,
+				"lugares":"Bogota",
+				"razonSocial":"Distribuidora Alcohol Express",
+				"direccion":"Calle Falsa 123",
+				"contactoTelefonico":"1800127000",
+				"sitioWeb":"www.alcohol.com",
+				"email":"prueba@mail.com",
+				"productos":null
+		}
 	}
 ]

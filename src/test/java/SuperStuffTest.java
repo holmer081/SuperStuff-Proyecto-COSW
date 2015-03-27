@@ -116,7 +116,7 @@ public class SuperStuffTest {
     }
     
     /**
-     * @author
+     * prueba para crear un nuevo proveedor
      */
     @Test
     public void crearNuevoProveedorTest(){
@@ -145,7 +145,7 @@ public class SuperStuffTest {
     }
     
     /**
-     * @author
+     * prueba para cargar productos por proveedor
      */
     @Test
     public void cargarProductosPorProveedorTest(){
@@ -209,7 +209,7 @@ public class SuperStuffTest {
     }
     
     /**
-     * @author
+     * prueba para registrar un tendero
      */
     @Test
     public void crearNuevoTenderoTest(){
@@ -225,7 +225,7 @@ public class SuperStuffTest {
     }
     
     /**
-     * @author
+     * Prueba para registrar un producto
      */
     @Test
     public void registrarProductoTest(){     
@@ -268,7 +268,7 @@ public class SuperStuffTest {
     }
     
     /**
-     * 
+     * Prueba para registrar un pedido
      */
     @Test
     public void registrarPedido() {
@@ -335,7 +335,7 @@ public class SuperStuffTest {
     }
     
     /**
-     * 
+     * Prueba para registrar un envio
      */
     @Test
     public void registrarNuevoEnvio() {
@@ -409,52 +409,4 @@ public class SuperStuffTest {
         
         assertEquals("El numero de pedidos registrados fue de 2", 2, envio.getPedidos().size());
     }
-    
-    @Test
-    public void ConsultarProductosPorCategoria(){
-        /*List<Producto> p=superStuff.cargarProductosPorCategoria(100);
-        assertEquals("El numero de productos de la categoria 100 es de 12" , 12, p.size());*/
-
-    }
-    /*
-    
-    @Test
-    public void ConsultarProductosPorCategoria(){
-        List<Producto> p=superStuff.cargarProductosPorCategoria(100);
-        assertEquals("El numero de productos de la categoria 100 es de 12" , 12, p.size());
-
-    }
-    @Test
-    public void ConsultarTodosLosProductos(){
-        List<Producto> p=superStuff.cargarTodosLosProductos();
-        assertEquals("El numero de productos es de 12" , 12, p.size());
-
-    }
-    @Test
-    public void ConsultarCategorias(){
-        List<Categoria> p=superStuff.cargarCategorias();
-        assertEquals("El numero de Categorias es de" , 2, p.size());
-
-    }
-    
-    @Test
-    public void ActualizarEstadoEnvio(){
-        Iterator<Pedido> myIterator = repositorioPedidos.findAll().iterator();
-        List<Pedido> myList = IteratorUtils.toList(myIterator);
-        Set<Pedido> pedidos = new HashSet<>(myList);
-        
-        int i = superStuff.registrarEnvio(pedidos);
-        
-        Envio envio = repositorioEnvios.findOne(i);
-        
-        repositorioEnvios.save(new Envio(new Date(System.currentTimeMillis())));
-        List<Lugar> lugares = (List<Lugar>)repositorioLugares.findAll();
-        repositorioEstadoEnvios.save(new EstadoEnvio(envio, lugares.get(0), "OF", "En Oficina", "LAT 4°35'56''57 lON 74°04'51''30"));
-        repositorioEstadoEnvios.ActualizarEnvio(envio.getIdEnvio(), "CA", "En CAMINO", "LAT 5°35'56''57 lON 80°04'51''30",lugares.get(1));
-        List<EstadoEnvio> es=(List<EstadoEnvio>)repositorioEstadoEnvios.findAll();
-        assertEquals("El estado actual del envio 1 es en camino" ,"En CAMINO",es.get(0).getDescripcion() );
-    }
-    
-    */
-
 }
