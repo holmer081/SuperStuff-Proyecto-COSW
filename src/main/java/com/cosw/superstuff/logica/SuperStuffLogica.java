@@ -258,4 +258,21 @@ public class SuperStuffLogica {
     public void crearNuevoTendero(Tendero t) {
        repositorioTenderos.save(t);
     }
+
+    public void registrarPedido(Pedido pedido) {
+       repositorioPedidos.save(pedido);
+    }
+    
+    public void registrarEnvio(Envio envio) {
+        repositorioEnvios.save(envio);
+    }
+
+    
+    public Envio cargarEnvioPorId(int id) {
+        return repositorioEnvios.findOne(id);
+    }
+    
+    public List<Tendero> cargarTenderos() {
+        return (List<Tendero>) repositorioTenderos.findAll();
+    }
 }

@@ -5,10 +5,15 @@
  */
 package com.cosw.superstuff.rest;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  *
  * @author HOMERO
  */
+@RestController
+@RequestMapping("/tendas")
 public class TiendasController {
     
 }

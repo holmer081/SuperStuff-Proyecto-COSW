@@ -6,12 +6,15 @@
 package com.cosw.superstuff.rest;
 
 import com.cosw.superstuff.logica.SuperStuffLogica;
+import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Proveedor;
 import com.cosw.superstuff.persistencia.Tendero;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,22 +31,15 @@ public class TenderosController {
     @Autowired
     SuperStuffLogica superStuff;
     
-    /*@RequestMapping(value="/",method = RequestMethod.POST)
+    @RequestMapping(value="/",method = RequestMethod.POST)
     public ResponseEntity<?> persist(@RequestBody Tendero t) {
         superStuff.crearNuevoTendero(t);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }*/
+    }
     
-    @RequestMapping(value="/",method = RequestMethod.POST)
-    public ResponseEntity<?> persist(@PathVariable("id") int idTendero, 
-                                     @PathVariable("nombre") String nombre) {
-
-        superStuff.crearNuevoTendero(idTendero, nombre);
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "*");
-        ResponseEntity<Object> res = new ResponseEntity<>(headers, HttpStatus.CREATED);
-        
-        return res;
+    @RequestMapping(value="/{id}",method = RequestMethod.GET) 
+    public List<Tendero> cargarProductosPorProveedor(@PathVariable int id) {
+        List<Tendero> tenderos = superStuff.cargarTenderos();
+        return tenderos;
     }
 }

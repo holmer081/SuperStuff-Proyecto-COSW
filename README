@@ -1,0 +1,36 @@
+--URL del proyecto: superstuff.heroku.com
+
+--Servicios REST:
+--Registrar Pedido:
+--http://superstuff.heroku.com/rest/pedido/
+--JSON:
+{
+	"idPedidos":3100,
+	"direccionEnvio":"cra 6 21-08",
+	"fechaLlegada":"2015-02-14",
+	"valorTotal":0,
+	"detalleCompras":
+	[
+		{
+			"id":{"pedidosIdPedidos":3100,"productosIdProductos":1},
+			"productos":
+				[
+					{
+						"idProductos":1,
+						"categoria":null,
+						"descuentos":null,
+						"descripcion":"Cerveza Aguila",
+						"precioLista":30000,
+						"metaDatos":null,
+						"proveedores":null
+					}],
+			"cantidad":2,"precioUnitario":30000
+		}
+	]
+}
+
+--Registrar Envio:
+--http://superstuff.heroku.com/rest/envio/
+--JSON:
+{"idEnvio":123,"fechaSalida":"2015-03-14","estadoEnvios":null,"pedidos":null}
+
