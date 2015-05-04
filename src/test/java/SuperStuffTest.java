@@ -213,13 +213,13 @@ public class SuperStuffTest {
      */
     @Test
     public void crearNuevoTenderoTest(){
-        repositorioTenderos.save(new Tendero(1, "Homero J Simpson"));
-        repositorioTenderos.save(new Tendero(2, "Marge Simpson"));
-        repositorioTenderos.save(new Tendero(3, "Lisa Simpson"));
-        repositorioTenderos.save(new Tendero(4, "Bart Simpson"));
-        repositorioTenderos.save(new Tendero(5, "Nelson Muntz"));
-        repositorioTenderos.save(new Tendero(6, "Seymour Skinner"));
-        repositorioTenderos.save(new Tendero(7, "Moe Szyslak"));
+        repositorioTenderos.save(new Tendero(1, "Homero J Simpson", "default", "default"));
+        repositorioTenderos.save(new Tendero(2, "Marge Simpson", "default", "default"));
+        repositorioTenderos.save(new Tendero(3, "Lisa Simpson", "default", "default"));
+        repositorioTenderos.save(new Tendero(4, "Bart Simpson", "default", "default"));
+        repositorioTenderos.save(new Tendero(5, "Nelson Muntz", "default", "default"));
+        repositorioTenderos.save(new Tendero(6, "Seymour Skinner", "default", "default"));
+        repositorioTenderos.save(new Tendero(7, "Moe Szyslak", "default", "default"));
         List<Tendero> tenderos = (List<Tendero>)repositorioTenderos.findAll();
         assertEquals("Hay 7 tenderos?", 7, tenderos.size());
     }

@@ -27,18 +27,20 @@ public class Tendero  implements java.io.Serializable {
     private int idTenderos;
     private String nombre;
     private String reputacion;
+    private String usuario;
+    private String contrasena;
     private Set<Tienda> tiendas = new HashSet<>(0);
 
     public Tendero() {
     }
 	
-    public Tendero(int idTenderos, String nombre) {
+    public Tendero(int idTenderos, String nombre, String usuario, String contrasena) {
         this.idTenderos = idTenderos;
         this.nombre = nombre;
         this.reputacion = TRESREP;
     }
     
-    public Tendero(int idTenderos, String nombre, Set<Tienda> tiendases) {
+    public Tendero(int idTenderos, String nombre, String usuario, String contrasena, Set<Tienda> tiendases) {
        this.idTenderos = idTenderos;
        this.nombre = nombre;
        this.reputacion = TRESREP;
@@ -71,6 +73,24 @@ public class Tendero  implements java.io.Serializable {
     
     public void setReputacion(String reputacion) {
         this.reputacion = reputacion;
+    }
+    
+    @Column(name="usuario")
+    public String getUsuario() {
+        return this.usuario;
+    }
+    
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+    
+    @Column(name="contrasena")
+    public String getContrasena() {
+        return this.contrasena;
+    }
+    
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     @OneToMany(fetch=FetchType.LAZY)

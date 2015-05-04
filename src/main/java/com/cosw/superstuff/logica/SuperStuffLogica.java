@@ -63,7 +63,7 @@ public class SuperStuffLogica {
     private RepositorioTenderos repositorioTenderos;
     
     @Autowired
-    private RepositorioDescuentos repositorioDescuentos;
+    private RepositorioDescuentos repositorioDescuentos;   
     
     /**
      * @author Holmer
@@ -236,8 +236,8 @@ public class SuperStuffLogica {
      * @param idTendero La cedula del tendero
      * @param nombre nombre del tendero
      */
-    public void crearNuevoTendero(int idTendero, String nombre){
-        Tendero t = new Tendero(idTendero, nombre);
+    public void crearNuevoTendero(int idTendero, String nombre, String usuario, String contrasena){
+        Tendero t = new Tendero(idTendero, nombre, usuario, contrasena);
         repositorioTenderos.save(t);
     }
     
@@ -288,5 +288,10 @@ public class SuperStuffLogica {
      */
     public List<Tendero> cargarTenderos() {
         return (List<Tendero>) repositorioTenderos.findAll();
+    }
+    
+    public Tendero iniciarSesionTendero(String usuario, String contrasena) {
+        Tendero t = repositorioTenderos.obtenerTenderoPorCrendenciales(usuario, contrasena);
+        return t;
     }
 }
