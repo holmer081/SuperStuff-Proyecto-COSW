@@ -28,6 +28,7 @@ public class Producto  implements java.io.Serializable {
      private Descuento descuentos;
      private String descripcion;
      private long precioLista;
+     private String imagen;
      private Proveedor proveedor;
      private Set<MetaDato> metaDatos = new HashSet<>(0);
 
@@ -100,6 +101,15 @@ public class Producto  implements java.io.Serializable {
     
     public void setPrecioLista(long precioLista) {
         this.precioLista = precioLista;
+    }
+    
+    @Column(name="imagen")
+    public String getImagen() {
+        return this.imagen;
+    }
+    
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     @ManyToMany

@@ -37,6 +37,13 @@ public class ProductosController {
         return productos;
     }
     
+    @RequestMapping(value="/categoria/{id}",method = RequestMethod.GET) 
+    public List<Producto> cargarProductosPorCategoria(@PathVariable int id) {
+        List<Producto> productos = null;
+        productos = superStuff.cargarProductosPorCategoria(id);
+        return productos;
+    }
+    
     @RequestMapping(value="/",method = RequestMethod.POST)
     public ResponseEntity<?> persist(@RequestBody Producto p) {
         superStuff.registrarProducto(p);

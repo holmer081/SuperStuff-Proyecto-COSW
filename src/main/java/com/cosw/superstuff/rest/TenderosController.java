@@ -39,7 +39,7 @@ public class TenderosController {
     }
     
     @RequestMapping(value="/{id}",method = RequestMethod.GET) 
-    public List<Tendero> cargarProductosPorProveedor(@PathVariable int id) {
+    public List<Tendero> traerTenderos(@PathVariable int id) {
         List<Tendero> tenderos = superStuff.cargarTenderos();
         return tenderos;
     }
