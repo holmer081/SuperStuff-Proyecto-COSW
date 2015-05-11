@@ -40,7 +40,10 @@ public class ProductosController {
     @RequestMapping(value="/categoria/{id}",method = RequestMethod.GET) 
     public List<Producto> cargarProductosPorCategoria(@PathVariable int id) {
         List<Producto> productos = null;
-        productos = superStuff.cargarProductosPorCategoria(id);
+        if(id == 0)
+            productos = superStuff.cargarTodosLosProductos();
+        else
+            productos = superStuff.cargarProductosPorCategoria(id);
         return productos;
     }
     
