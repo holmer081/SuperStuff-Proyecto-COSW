@@ -28,20 +28,25 @@ public class Proveedor  implements java.io.Serializable {
     private String contactoTelefonico;
     private String sitioWeb;
     private String email;
+    private String usuario;
+    private String contrasena;
     private Set<Producto> productos = new HashSet<>(0);
-
+	
     public Proveedor() {
     }
-	
-    public Proveedor(int idProveedores, Lugar lugares, String razonSocial, String direccion, String contactoTelefonico, String sitioWeb, String email) {
-        this.idProveedores = idProveedores;
-        this.lugares = lugares;
-        this.razonSocial = razonSocial;
-        this.direccion = direccion;
-        this.contactoTelefonico = contactoTelefonico;
-        this.sitioWeb = sitioWeb;
-        this.email = email;
+
+    public Proveedor(int idProveedores, Lugar lugar, String razonSocial, String direccion, String contactoTelefonico, String sitioWeb, String email, String usuario, String contrasena) {
+       this.idProveedores = idProveedores;
+       this.lugares = lugar;
+       this.razonSocial = razonSocial;
+       this.direccion = direccion;
+       this.contactoTelefonico = contactoTelefonico;
+       this.sitioWeb = sitioWeb;
+       this.email = email;
+       this.usuario = usuario;
+       this.contrasena = contrasena;
     }
+   
     public Proveedor(int idProveedores, Lugar lugares, String razonSocial, String direccion, String contactoTelefonico, String sitioWeb, String email, Set<Producto> productoses) {
        this.idProveedores = idProveedores;
        this.lugares = lugares;
@@ -53,9 +58,7 @@ public class Proveedor  implements java.io.Serializable {
        this.productos = productoses;
     }
    
-     @Id 
-
-    
+    @Id 
     @Column(name="idProveedores", unique=true, nullable=false)
     public int getIdProveedores() {
         return this.idProveedores;
@@ -123,6 +126,24 @@ public class Proveedor  implements java.io.Serializable {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    @Column(name="usuario", nullable=false, length=100)
+    public String getUsuario() {
+        return this.usuario;
+    }
+    
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    @Column(name="contrasena", nullable=false, length=45)
+    public String getContrasena() {
+        return this.contrasena;
+    }
+    
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedores")

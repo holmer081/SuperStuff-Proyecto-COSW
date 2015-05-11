@@ -213,8 +213,8 @@ public class SuperStuffLogica {
      * @param email Mail por si acaso
      * @return El id del nuevo proveedor
      */
-    public int crearNuevoProveedor(int idProveedores, Lugar lugares, String razonSocial, String direccion, String contactoTelefonico, String sitioWeb, String email){
-        Proveedor p = new Proveedor(idProveedores, lugares, razonSocial, direccion, contactoTelefonico, sitioWeb, email);
+    public int crearNuevoProveedor(int idProveedores, Lugar lugares, String razonSocial, String direccion, String contactoTelefonico, String sitioWeb, String email, String nombreUsuario, String contrasena){
+        Proveedor p = new Proveedor(idProveedores, lugares, razonSocial, direccion, contactoTelefonico, sitioWeb, email, nombreUsuario, contrasena);
         repositorioProveedores.save(p);
         return p.getIdProveedores();
     }
