@@ -10,6 +10,11 @@ import com.cosw.superstuff.persistencia.DetalleCompra;
 import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Tendero;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,15 +40,72 @@ public class PedidosController {
     SuperStuffLogica superStuff;
 
     
-    @RequestMapping(value="/",method = RequestMethod.POST)
-    public ResponseEntity<?> persist(@RequestBody Pedido pedido) {  
+    @RequestMapping(value="/tarjeta/{numTarjeta}"
+            + "/securityCode/{securityCode}"
+            + "/nombre/{nombre}"
+            + "/monto/{monto}"
+            + "/correo/{correo}"
+            + "/direccion/{direccion}"
+            + "/dia/{dia}"
+            + "/mes/{mes}"
+            + "/ano/{ano}"
+            + "/hora/{hora}"
+            + "/idProductos/{idProductos}"
+            + "/cantidades/{cantidades}",method = RequestMethod.POST)
+    public ResponseEntity<?> realizarPedido(@PathVariable String numTarjeta
+            , @PathVariable String securityCode
+            , @PathVariable String nombre
+            , @PathVariable String monto
+            , @PathVariable String correo
+            , @PathVariable String direccion
+            , @PathVariable int dia
+            , @PathVariable int mes
+            , @PathVariable int ano
+            , @PathVariable int hora
+            , @PathVariable int[] idProductos
+            , @PathVariable int[] cantidades) {  
+        
+        Date date = new Date();
+        date.setDate(dia);
+        date.setMonth(mes);
+        date.setYear(ano);
+        date.setHours(hora);
+        
         
         try {
-            superStuff.registrarPedido(pedido);
+            realizarPago(numTarjeta, securityCode, nombre, monto, correo);
+            superStuff.registrarPedido(direccion, date, idProductos, cantidades);
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         } catch (Exception ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public Date prueba() {
+        return new Date();
+    }
+    
+    
+    
+    private void realizarPago(String numTarjeta, String securityCode, String nombre, String cantidad, String correo) {
+        try {
+            String stringurl = "https://pasarelacosw.herokuapp.com/rest/PAYPAL/pago/tarjeta/" +
+                    "/" + nombre +"/VISA/" + securityCode + "/" + correo + "/monto/" + cantidad + "/seguridad/3/SuperStuff";
+            URL url = new URL(stringurl);
+            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+            httpCon.setDoOutput(true);
+            httpCon.setRequestMethod("PUT");
+            OutputStreamWriter out = new OutputStreamWriter(
+                    httpCon.getOutputStream());
+            out.close();
+            httpCon.getInputStream();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

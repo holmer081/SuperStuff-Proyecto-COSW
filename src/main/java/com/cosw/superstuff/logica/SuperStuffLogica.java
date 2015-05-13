@@ -256,14 +256,6 @@ public class SuperStuffLogica {
     public void crearNuevoTendero(Tendero t) {
        repositorioTenderos.save(t);
     }
-
-    /**
-     * Guarda un pedido en la base de datos
-     * @param pedido 
-     */
-    public void registrarPedido(Pedido pedido) {
-       repositorioPedidos.save(pedido);
-    }
     
     /**
      * Guarda un envio en la base de datos
@@ -293,5 +285,9 @@ public class SuperStuffLogica {
     public Tendero iniciarSesionTendero(String usuario, String contrasena) {
         Tendero t = repositorioTenderos.obtenerTenderoPorCrendenciales(usuario, contrasena);
         return t;
+    }
+    
+    public List<Pedido> getPedidos() {
+        return (List<Pedido>)repositorioPedidos.findAll();
     }
 }
