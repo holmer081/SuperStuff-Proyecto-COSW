@@ -6,7 +6,9 @@
 package com.cosw.superstuff.rest;
 
 import com.cosw.superstuff.logica.SuperStuffLogica;
+import com.cosw.superstuff.main.Main;
 import com.cosw.superstuff.persistencia.DetalleCompra;
+import com.cosw.superstuff.persistencia.Factura;
 import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Tendero;
@@ -42,21 +44,15 @@ public class PedidosController {
     
     @RequestMapping(value="/tarjeta/{numTarjeta}"
             + "/securityCode/{securityCode}"
-            + "/nombre/{nombre}"
-            + "/monto/{monto}"
-            + "/correo/{correo}"
+            + "/idTendero/{idTendero}"
+            + "/idTienda/{idTienda}"
             + "/direccion/{direccion}"
-            + "/dia/{dia}"
-            + "/mes/{mes}"
-            + "/ano/{ano}"
-            + "/hora/{hora}"
+            + "/fecha/{dia}/{mes}/{ano}/{hora}"
             + "/idProductos/{idProductos}"
             + "/cantidades/{cantidades}",method = RequestMethod.POST)
     public ResponseEntity<?> realizarPedido(@PathVariable String numTarjeta
             , @PathVariable String securityCode
-            , @PathVariable String nombre
-            , @PathVariable String monto
-            , @PathVariable String correo
+            , @PathVariable String idTendero
             , @PathVariable String direccion
             , @PathVariable int dia
             , @PathVariable int mes
@@ -73,8 +69,13 @@ public class PedidosController {
         
         
         try {
-            realizarPago(numTarjeta, securityCode, nombre, monto, correo);
-            superStuff.registrarPedido(direccion, date, idProductos, cantidades);
+            Tendero tendero = superStuff.cargarTenderoPorId(Integer.valueOf(idTendero));
+            Factura factura = superStuff.registrarPedido(direccion, date, idProductos, cantidades);
+            
+            realizarPago(numTarjeta, securityCode, tendero.getNombre(), String.valueOf(factura.getValor()));
+            
+            //Factura nuevaFactura = new Factura(hora, monto);
+            //nuevaFactura.
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         } catch (Exception ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,17 +84,21 @@ public class PedidosController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public Date prueba() {
-        return new Date();
+    @RequestMapping(value="/{dia}-{mes}-{anio}", method = RequestMethod.GET)
+    public String prueba(@PathVariable String dia, @PathVariable String mes, @PathVariable String anio) {
+        return dia + mes + anio;
+    }
+    
+    public static void main(String[] args) {
+        
     }
     
     
     
-    private void realizarPago(String numTarjeta, String securityCode, String nombre, String cantidad, String correo) {
+    private void realizarPago(String numTarjeta, String securityCode, String nombre, String cantidad) {
         try {
             String stringurl = "https://pasarelacosw.herokuapp.com/rest/PAYPAL/pago/tarjeta/" +
-                    "/" + nombre +"/VISA/" + securityCode + "/" + correo + "/monto/" + cantidad + "/seguridad/3/SuperStuff";
+                    "/" + nombre +"/VISA/" + securityCode + "/correoFalso" + "/monto/" + cantidad + "/seguridad/3/SuperStuff";
             URL url = new URL(stringurl);
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setDoOutput(true);

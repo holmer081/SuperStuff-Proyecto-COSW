@@ -10,6 +10,7 @@ import com.cosw.superstuff.persistencia.Descuento;
 import com.cosw.superstuff.persistencia.DetalleCompra;
 import com.cosw.superstuff.persistencia.DetalleCompraId;
 import com.cosw.superstuff.persistencia.Envio;
+import com.cosw.superstuff.persistencia.Factura;
 import com.cosw.superstuff.persistencia.Lugar;
 import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
@@ -20,6 +21,7 @@ import com.cosw.superstuff.rep.RepositorioDescuentos;
 import com.cosw.superstuff.rep.RepositorioDetalleCompra;
 import com.cosw.superstuff.rep.RepositorioEnvios;
 import com.cosw.superstuff.rep.RepositorioEstadoEnvios;
+import com.cosw.superstuff.rep.RepositorioFacturas;
 import com.cosw.superstuff.rep.RepositorioPedidos;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
@@ -65,11 +67,14 @@ public class SuperStuffLogica {
     @Autowired
     private RepositorioDescuentos repositorioDescuentos;   
     
+    @Autowired
+    private RepositorioFacturas repositorioFacturas;   
+    
     /**
      * @author Holmer
      * Registra un nuevo producto
      * @param id El nuevo id que se registrara
-     * @param proveedor El proveedor dueño de este producto
+     * @param proveedor El proveedor dueÃ±o de este producto
      * @param categoria La categoria a la que pertenece el producto
      * @param descuento El descuento aplicable a este producto
      * @param precio El precio de este producto
@@ -138,10 +143,10 @@ public class SuperStuffLogica {
      * @param fecha La fecha en la que deberia llegar el producto
      * @param idProductos La lista de los productos
      * @param cantidades Las cantidades
-     * @return El id del nuevo pedido registrado
+     * @return El valorTotal del pedido del nuevo pedido registrado
      * @throws java.lang.Exception En caso de que las cantidades no correspondan a los productos
      */
-    public int registrarPedido(String direccion, Date fecha, int[] idProductos, int cantidades[]) throws Exception{
+    public Factura registrarPedido(String direccion, Date fecha, int[] idProductos, int cantidades[]) throws Exception{
         if(idProductos.length != cantidades.length)
             throw new Exception("cantidades no corresponder al numero de productos a pedir");
         
@@ -168,7 +173,11 @@ public class SuperStuffLogica {
         
         repositorioPedidos.save(pedido);
         
-        return pedido.getIdPedidos();
+        Factura nuevaFactura = new Factura(1, valorPedido);
+        nuevaFactura.setPedido(pedido);
+        repositorioFacturas.save(nuevaFactura);
+        
+        return nuevaFactura;
     }
     
     /**
@@ -281,6 +290,15 @@ public class SuperStuffLogica {
     public List<Tendero> cargarTenderos() {
         return (List<Tendero>) repositorioTenderos.findAll();
     }
+    
+    /**
+     * Retorna una lista con todos los tenderos
+     * @return lista de tenderos
+     */
+    public Tendero cargarTenderoPorId(int id) {
+        return repositorioTenderos.findOne(id);
+    }
+    
     
     public Tendero iniciarSesionTendero(String usuario, String contrasena) {
         Tendero t = repositorioTenderos.obtenerTenderoPorCrendenciales(usuario, contrasena);
