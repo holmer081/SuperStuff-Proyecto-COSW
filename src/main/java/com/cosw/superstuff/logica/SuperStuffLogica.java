@@ -181,8 +181,9 @@ public class SuperStuffLogica {
         
         repositorioPedidos.save(pedido);
         
-        Factura nuevaFactura = new Factura(1, valorPedido);
+        Factura nuevaFactura = new Factura(valorPedido);
         nuevaFactura.setPedido(pedido);
+        nuevaFactura.setTienda(tienda);
         repositorioFacturas.save(nuevaFactura);
         
         tienda.getFacturases().add(nuevaFactura);

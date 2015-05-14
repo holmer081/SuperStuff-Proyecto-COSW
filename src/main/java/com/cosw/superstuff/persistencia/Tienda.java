@@ -4,6 +4,7 @@ package com.cosw.superstuff.persistencia;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -69,7 +70,7 @@ public class Tienda  implements java.io.Serializable {
         this.direccion = direccion;
     }
 
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "tienda")
     public Set<Factura> getFacturases() {
         return this.facturases;
     }

@@ -27,7 +27,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name="Pedidos")
 public class Pedido  implements java.io.Serializable {
 
-     private int idPedidos = 0;
+     private int idPedidos;
      private String direccionEnvio;
      private Date fechaLlegada;
      private long valorTotal;

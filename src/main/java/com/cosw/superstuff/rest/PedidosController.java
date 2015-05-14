@@ -12,8 +12,12 @@ import com.cosw.superstuff.persistencia.Factura;
 import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Tendero;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.h2.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,8 +54,8 @@ public class PedidosController {
             + "/direccion/{direccion}"
             + "/fecha/{dia}/{mes}/{ano}/{hora}"
             + "/idProductos/{idProductos}"
-            + "/cantidades/{cantidades}",method = RequestMethod.POST)
-    public ResponseEntity<?> realizarPedido(@PathVariable String numTarjeta
+            + "/cantidades/{cantidades}",method = RequestMethod.GET)
+    public String realizarPedido(@PathVariable String numTarjeta
             , @PathVariable String securityCode
             , @PathVariable int idTendero
             , @PathVariable int idTienda
@@ -72,29 +77,17 @@ public class PedidosController {
         try {
             Tendero tendero = superStuff.cargarTenderoPorId(idTendero);
             Factura factura = superStuff.registrarPedido(idTienda, direccion, date, idProductos, cantidades);
-            realizarPago(numTarjeta, securityCode, tendero.getNombre(), String.valueOf(factura.getValor()));
-            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
+            return realizarPago(numTarjeta, securityCode, tendero.getNombre(), String.valueOf(factura.getValor()));
         } catch (Exception ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return "Error";
     }
     
-    @RequestMapping(value="/{dia}-{mes}-{anio}", method = RequestMethod.GET)
-    public String prueba(@PathVariable String dia, @PathVariable String mes, @PathVariable String anio) {
-        return dia + mes + anio;
-    }
-    
-    public static void main(String[] args) {
-        
-    }
-    
-    
-    
-    private void realizarPago(String numTarjeta, String securityCode, String nombre, String cantidad) {
+    public String realizarPago(String numTarjeta, String securityCode, String nombre, String cantidad) {
         try {
-            String stringurl = "https://pasarelacosw.herokuapp.com/rest/PAYPAL/pago/tarjeta/" +
+            String stringurl = "https://pasarelacosw.herokuapp.com/rest/PAYPAL/pago/tarjeta/" + numTarjeta +
                     "/" + nombre +"/VISA/" + securityCode + "/correoFalso" + "/monto/" + cantidad + "/seguridad/3/SuperStuff";
             URL url = new URL(stringurl);
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -103,11 +96,42 @@ public class PedidosController {
             OutputStreamWriter out = new OutputStreamWriter(
                     httpCon.getOutputStream());
             out.close();
-            httpCon.getInputStream();
+            
+            return getStringFromInputStream(httpCon.getInputStream());
         } catch (MalformedURLException ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return "";
     }
+    
+    private static String getStringFromInputStream(InputStream is) {
+ 
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+ 
+		String line;
+		try {
+ 
+			br = new BufferedReader(new InputStreamReader(is));
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+ 
+		return sb.toString();
+ 
+	}
 }
