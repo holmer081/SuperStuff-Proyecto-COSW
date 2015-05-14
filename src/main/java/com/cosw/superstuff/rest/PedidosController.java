@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -47,25 +48,18 @@ public class PedidosController {
     SuperStuffLogica superStuff;
 
     
-    @RequestMapping(value="/tarjeta/{numTarjeta}"
-            + "/securityCode/{securityCode}"
-            + "/idTendero/{idTendero}"
-            + "/idTienda/{idTienda}"
-            + "/direccion/{direccion}"
-            + "/fecha/{dia}/{mes}/{ano}/{hora}"
-            + "/idProductos/{idProductos}"
-            + "/cantidades/{cantidades}",method = RequestMethod.GET)
-    public String realizarPedido(@PathVariable String numTarjeta
-            , @PathVariable String securityCode
-            , @PathVariable int idTendero
-            , @PathVariable int idTienda
-            , @PathVariable String direccion
-            , @PathVariable int dia
-            , @PathVariable int mes
-            , @PathVariable int ano
-            , @PathVariable int hora
-            , @PathVariable int[] idProductos
-            , @PathVariable int[] cantidades) {  
+    @RequestMapping(value="/", method = RequestMethod.POST)
+    public String realizarPedido(@RequestParam(value = "numTarjeta") String numTarjeta
+            , @RequestParam(value = "securityCode") String securityCode
+            , @RequestParam(value = "idTendero") int idTendero
+            , @RequestParam(value = "idTienda") int idTienda
+            , @RequestParam(value = "direccion") String direccion
+            , @RequestParam(value = "dia") int dia
+            , @RequestParam(value = "mes") int mes
+            , @RequestParam(value = "ano") int ano
+            , @RequestParam(value = "hora") int hora
+            , @RequestParam(value = "idProductos") int[] idProductos
+            , @RequestParam(value = "cantidades") int[] cantidades) {  
         
         Date date = new Date();
         date.setDate(dia);
@@ -84,8 +78,8 @@ public class PedidosController {
 
         return "Error";
     }
-    
-    public String realizarPago(String numTarjeta, String securityCode, String nombre, String cantidad) {
+
+    private String realizarPago(String numTarjeta, String securityCode, String nombre, String cantidad) {
         try {
             String stringurl = "https://pasarelacosw.herokuapp.com/rest/PAYPAL/pago/tarjeta/" + numTarjeta +
                     "/" + nombre +"/VISA/" + securityCode + "/correoFalso" + "/monto/" + cantidad + "/seguridad/3/SuperStuff";
