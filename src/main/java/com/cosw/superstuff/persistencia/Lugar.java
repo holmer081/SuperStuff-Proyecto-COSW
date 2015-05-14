@@ -42,7 +42,7 @@ public class Lugar  implements java.io.Serializable {
     
     @Id 
     @GeneratedValue(strategy=IDENTITY)
-    @Column(name="idLugar", unique=true, nullable=false)
+    @Column(name="idLugar")
     public Integer getIdLugar() {
         return this.idLugar;
     }
@@ -52,7 +52,7 @@ public class Lugar  implements java.io.Serializable {
     }
 
     @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="Pais_pais", nullable=false)
+    @JoinColumn(name="Pais_pais")
     public Pais getPaises() {
         return this.paises;
     }
@@ -62,7 +62,7 @@ public class Lugar  implements java.io.Serializable {
     }
 
     
-    @Column(name="ciudad", nullable=false, length=45)
+    @Column(name="ciudad")
     public String getCiudad() {
         return this.ciudad;
     }
@@ -72,7 +72,7 @@ public class Lugar  implements java.io.Serializable {
     }
 
     
-    @Column(name="barrio", nullable=false, length=45)
+    @Column(name="barrio")
     public String getBarrio() {
         return this.barrio;
     }

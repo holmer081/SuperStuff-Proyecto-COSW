@@ -52,7 +52,8 @@ public class PedidosController {
             + "/cantidades/{cantidades}",method = RequestMethod.POST)
     public ResponseEntity<?> realizarPedido(@PathVariable String numTarjeta
             , @PathVariable String securityCode
-            , @PathVariable String idTendero
+            , @PathVariable int idTendero
+            , @PathVariable int idTienda
             , @PathVariable String direccion
             , @PathVariable int dia
             , @PathVariable int mes
@@ -69,13 +70,9 @@ public class PedidosController {
         
         
         try {
-            Tendero tendero = superStuff.cargarTenderoPorId(Integer.valueOf(idTendero));
-            Factura factura = superStuff.registrarPedido(direccion, date, idProductos, cantidades);
-            
+            Tendero tendero = superStuff.cargarTenderoPorId(idTendero);
+            Factura factura = superStuff.registrarPedido(idTienda, direccion, date, idProductos, cantidades);
             realizarPago(numTarjeta, securityCode, tendero.getNombre(), String.valueOf(factura.getValor()));
-            
-            //Factura nuevaFactura = new Factura(hora, monto);
-            //nuevaFactura.
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         } catch (Exception ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);

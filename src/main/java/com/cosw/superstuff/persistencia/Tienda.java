@@ -51,7 +51,7 @@ public class Tienda  implements java.io.Serializable {
     }
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="Lugar_idLugar", nullable=false)
+    @JoinColumn(name="Lugar_idLugar")
     public Lugar getLugares() {
         return this.lugares;
     }

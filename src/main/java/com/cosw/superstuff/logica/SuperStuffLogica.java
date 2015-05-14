@@ -16,6 +16,7 @@ import com.cosw.superstuff.persistencia.Pedido;
 import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Proveedor;
 import com.cosw.superstuff.persistencia.Tendero;
+import com.cosw.superstuff.persistencia.Tienda;
 import com.cosw.superstuff.rep.RepositorioCategorias;
 import com.cosw.superstuff.rep.RepositorioDescuentos;
 import com.cosw.superstuff.rep.RepositorioDetalleCompra;
@@ -26,6 +27,7 @@ import com.cosw.superstuff.rep.RepositorioPedidos;
 import com.cosw.superstuff.rep.RepositorioProductos;
 import com.cosw.superstuff.rep.RepositorioProveedores;
 import com.cosw.superstuff.rep.RepositorioTenderos;
+import com.cosw.superstuff.rep.RepositorioTiendas;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -63,6 +65,9 @@ public class SuperStuffLogica {
     
     @Autowired
     private RepositorioTenderos repositorioTenderos;
+    
+    @Autowired
+    private RepositorioTiendas repositorioTiendas;
     
     @Autowired
     private RepositorioDescuentos repositorioDescuentos;   
@@ -139,6 +144,7 @@ public class SuperStuffLogica {
     /**
      * @author Camilo
      * Registra un nuevo pedido con los detalles de compra correspondiente
+     * @param idTienda
      * @param direccion La direccion del envio
      * @param fecha La fecha en la que deberia llegar el producto
      * @param idProductos La lista de los productos
@@ -146,9 +152,11 @@ public class SuperStuffLogica {
      * @return El valorTotal del pedido del nuevo pedido registrado
      * @throws java.lang.Exception En caso de que las cantidades no correspondan a los productos
      */
-    public Factura registrarPedido(String direccion, Date fecha, int[] idProductos, int cantidades[]) throws Exception{
+    public Factura registrarPedido(int idTienda, String direccion, Date fecha, int[] idProductos, int cantidades[]) throws Exception{
         if(idProductos.length != cantidades.length)
             throw new Exception("cantidades no corresponder al numero de productos a pedir");
+        
+        Tienda tienda = repositorioTiendas.findOne(idTienda);
         
         int valorPedido = 0;
         Set<DetalleCompra> detallesCompra = new HashSet<>();
@@ -176,6 +184,9 @@ public class SuperStuffLogica {
         Factura nuevaFactura = new Factura(1, valorPedido);
         nuevaFactura.setPedido(pedido);
         repositorioFacturas.save(nuevaFactura);
+        
+        tienda.getFacturases().add(nuevaFactura);
+        repositorioTiendas.save(tienda);
         
         return nuevaFactura;
     }

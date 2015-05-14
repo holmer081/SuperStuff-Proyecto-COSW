@@ -47,7 +47,7 @@ public class Pais  implements java.io.Serializable {
     }
    
     @Id 
-    @Column(name="pais", unique=true, nullable=false, length=45)
+    @Column(name="pais")
     public String getPais() {
         return this.pais;
     }
@@ -56,7 +56,7 @@ public class Pais  implements java.io.Serializable {
         this.pais = pais;
     }
 
-    @Column(name="abreviacion", nullable=false, length=45)
+    @Column(name="abreviacion")
     public String getAbreviacion() {
         return this.abreviacion;
     }
@@ -66,7 +66,7 @@ public class Pais  implements java.io.Serializable {
     }
 
     
-    @Column(name="idioma", nullable=false, length=45)
+    @Column(name="idioma")
     public String getIdioma() {
         return this.idioma;
     }
@@ -75,7 +75,7 @@ public class Pais  implements java.io.Serializable {
         this.idioma = idioma;
     }
     
-    @Column(name="cobertura", nullable=false, length=2)
+    @Column(name="cobertura")
     public String getCobertura() {
         return this.cobertura;
     }
