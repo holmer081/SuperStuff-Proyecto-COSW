@@ -320,4 +320,8 @@ public class SuperStuffLogica {
     public List<Pedido> getPedidos() {
         return (List<Pedido>)repositorioPedidos.findAll();
     }
+    
+    public List<Tienda> getTiendasPorTendero (int idTendero) {
+        return repositorioTiendas.getTiendasPorTendero(idTendero);
+    }
 }

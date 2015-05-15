@@ -6,7 +6,10 @@
 package com.cosw.superstuff.rep;
 
 import com.cosw.superstuff.persistencia.Tienda;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -14,4 +17,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface RepositorioTiendas extends CrudRepository<Tienda, Integer>{
     
+    @Query("SELECT t from Tendero tend INNER JOIN tend.tiendas t WHERE tend.idTenderos = :idTendero")
+    public List<Tienda> getTiendasPorTendero (@Param("idTendero") int idTendero);
 }

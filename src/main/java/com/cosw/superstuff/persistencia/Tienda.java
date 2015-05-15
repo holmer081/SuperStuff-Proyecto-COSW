@@ -22,6 +22,7 @@ import javax.persistence.Table;
 public class Tienda  implements java.io.Serializable {
 
     private int idTiendas;
+    private String nombre;
     private Lugar lugares;
     private String direccion;
     private Set<Factura> facturases = new HashSet<>(0);
@@ -29,12 +30,12 @@ public class Tienda  implements java.io.Serializable {
     public Tienda() {
     }
 	
-    public Tienda(int idTiendas, Lugar lugares, String direccion) {
+    public Tienda(int idTiendas, String nombre, Lugar lugares, String direccion) {
         this.idTiendas = idTiendas;
         this.lugares = lugares;
         this.direccion = direccion;
     }
-    public Tienda(int idTiendas, Lugar lugares, String direccion, Set<Factura> facturases) {
+    public Tienda(int idTiendas, String nombre, Lugar lugares, String direccion, Set<Factura> facturases) {
        this.idTiendas = idTiendas;
        this.lugares = lugares;
        this.direccion = direccion;
@@ -51,6 +52,15 @@ public class Tienda  implements java.io.Serializable {
         this.idTiendas = idTiendas;
     }
 
+    @Column(name="nombre")
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="Lugar_idLugar")
     public Lugar getLugares() {
