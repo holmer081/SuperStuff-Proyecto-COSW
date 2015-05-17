@@ -9,6 +9,7 @@ import com.cosw.superstuff.logica.SuperStuffLogica;
 import com.cosw.superstuff.persistencia.Tienda;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author HOMERO
  */
 @RestController
-@RequestMapping("/tendas")
+@RequestMapping("/tiendas")
 public class TiendasController {
     
     @Autowired
     SuperStuffLogica superStuff;
     
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Tienda> getTiendasPorTendero(int idTendero) {
+    @RequestMapping(value="/{idTendero}", method = RequestMethod.GET)
+    public List<Tienda> getTiendasPorTendero(@PathVariable int idTendero) {
         return superStuff.getTiendasPorTendero(idTendero);
     }
 }

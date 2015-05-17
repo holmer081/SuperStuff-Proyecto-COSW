@@ -45,12 +45,12 @@ public class Main {
    
         //Aqui va codigo de pruebas
         
-        Query q2 = session.createQuery("SELECT e.pedidos from Envio e inner join e.pedidos as p inner join p.detalleCompras as detalleP inner join detalleP.productos as prod inner join prod.proveedores as prov where (prov.idProveedores = 1) and (day(e.fechaSalida) < day(:finalDate)) GROUP BY prov");
+        Query q2 = session.createQuery("SELECT t from Tendero tend INNER JOIN tend.tiendas t WHERE tend.idTenderos = 4961");
         
-        List<Pedido> p = q2.list();
+        List<Tienda> p = q2.list();
         
-        for (Pedido p1 : p) {
-            System.out.println("Fecha" + p1.getFechaLlegada().toString());
+        for (Tienda p1 : p) {
+            System.out.println("Fecha" + p1.getNombre());
         }
         
         tx.commit();

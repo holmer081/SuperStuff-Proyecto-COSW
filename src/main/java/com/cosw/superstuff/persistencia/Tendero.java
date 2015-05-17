@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -94,6 +95,7 @@ public class Tendero  implements java.io.Serializable {
     }
 
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name = "Tenderos_idTenderos")
     public Set<Tienda> getTiendas() {
         return this.tiendas;
     }

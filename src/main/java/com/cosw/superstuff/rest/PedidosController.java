@@ -6,31 +6,20 @@
 package com.cosw.superstuff.rest;
 
 import com.cosw.superstuff.logica.SuperStuffLogica;
-import com.cosw.superstuff.main.Main;
-import com.cosw.superstuff.persistencia.DetalleCompra;
 import com.cosw.superstuff.persistencia.Factura;
-import com.cosw.superstuff.persistencia.Pedido;
-import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Tendero;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.h2.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,7 +46,6 @@ public class PedidosController {
             , @RequestParam(value = "dia") int dia
             , @RequestParam(value = "mes") int mes
             , @RequestParam(value = "ano") int ano
-            , @RequestParam(value = "hora") int hora
             , @RequestParam(value = "idProductos") int[] idProductos
             , @RequestParam(value = "cantidades") int[] cantidades) {  
         
@@ -65,7 +53,6 @@ public class PedidosController {
         date.setDate(dia);
         date.setMonth(mes);
         date.setYear(ano);
-        date.setHours(hora);
         
         
         try {
