@@ -1,0 +1,16 @@
+<div>
+    <h1> Catálogo de productos </h1>
+    <div>
+        <div ng-controller="todosLosProductos as catalogo">
+        <form>
+            <table class="table table-striped table-bordered">
+                <tr ng-repeat="x in productos">
+                  <td>{{x.nombre}}</td>
+                  <td>{{x.precio}}</td>
+                </tr>
+            </table>
+            <button class="btn btn-success" ng-click="catalogo.consultar()">Consultar</button>
+        </form>
+        </div>
+    </div>
+</div>

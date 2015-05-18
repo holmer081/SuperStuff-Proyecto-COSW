@@ -191,18 +191,18 @@ public class SuperStuffTest {
         Proveedor pr4 = repositorioProveedores.findOne(4);
         Proveedor pr5 = repositorioProveedores.findOne(5);
         Proveedor pr6 = repositorioProveedores.findOne(6);
-        repositorioProductos.save(new Producto(1, c1, d1, "Jack Daniel´s Whiskey Old Time", p, 1000000));
-        repositorioProductos.save(new Producto(2, c1, d1, "Cerveza Aguila", p, 1000000));
-        repositorioProductos.save(new Producto(3, c1, d1, "Aguardiente Antioqueño", p, 1000000));
-        repositorioProductos.save(new Producto(4, c1, d1, "Vino Cariñoso", p, 1000000));
-        repositorioProductos.save(new Producto(5, c1, d1, "Aguardiente Blanco del Valle Ice", p, 1000000));
-        repositorioProductos.save(new Producto(6, c1, d1, "Baileys Irish Cream", p, 1000000));
-        repositorioProductos.save(new Producto(7, c1, d1, "A", pr2, 1000000));
-        repositorioProductos.save(new Producto(8, c1, d1, "B", pr3, 1000000));
-        repositorioProductos.save(new Producto(9, c1, d1, "C", pr4, 1000000));
-        repositorioProductos.save(new Producto(10, c1, d1, "D", pr5, 1000000));
-        repositorioProductos.save(new Producto(11, c1, d1, "E", pr6, 1000000));
-        repositorioProductos.save(new Producto(12, c1, d1, "F", pr6, 1000000));
+        repositorioProductos.save(new Producto(c1, d1, p, "Jack Daniel´s Whiskey Old Time", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, p, "Cerveza Aguila", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, p, "Aguardiente Antioqueño", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, p, "Vino Cariñoso", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, p, "Aguardiente Blanco del Valle Ice", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, p, "Baileys Irish Cream", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, pr2, "A", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, pr3, "B", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, pr4, "C", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, pr5, "D", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, pr6, "E", 1000000, null));
+        repositorioProductos.save(new Producto(c1, d1, pr6, "F", 1000000, null));
                
         List<Producto> producto = superStuff.cargarProductosPorProveedor(1);
         
@@ -262,8 +262,9 @@ public class SuperStuffTest {
         Proveedor p = repositorioProveedores.findOne(1);
         Categoria c1 = repositorioCategorias.findOne(100);
         Iterable<Descuento> d1 = repositorioDescuentos.findAll();
-        superStuff.registrarProducto(new Producto(1, c1, d1.iterator().next(), "Jack Daniel´s Whiskey Old Time", p, 1000000));
-        Producto producto = repositorioProductos.findOne(1);
+        Producto pd = new Producto(c1, d1.iterator().next(), p, "Jack Daniel´s Whiskey Old Time", 1000000, null);
+        int id = superStuff.registrarProducto(pd);
+        Producto producto = repositorioProductos.findOne(id);
         
         assertEquals("Ha cargado la descripcion del producto?", "Jack Daniel´s Whiskey Old Time", producto.getDescripcion());
         assertNotNull("La categoria del producto no debe ser nula", producto.getCategoria());

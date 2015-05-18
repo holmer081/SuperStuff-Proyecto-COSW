@@ -1,0 +1,34 @@
+<div>
+    <div ng-controller="controlregistro as registro">
+        <h1> Registro de nuevos productos </h1>
+        <form>
+            Descripción del Producto:
+            <br>
+                <input type="text" name="descripcionProducto" ng-model="registro.producto.descripcion">
+            <br><br>
+            
+            Precio del Producto:
+            <br>
+                <input type="number" name="precioProducto" ng-model="registro.producto.precioLista">
+            <br><br>
+            Seleccione una Categoria:
+            <br>
+            <select data-ng-model="registro.categoriaSeleccionada" 
+                    data-ng-options="a.categoria for a in categorias"> 
+            </select>
+            <br><br>
+           <p>$scope.categoriaSeleccionada: {{registro.categoriaSeleccionada}}<p>
+            Descuentos
+            <br>
+            <select data-ng-model="registro.descuentoSeleccionado" 
+                    data-ng-options="a.descripcion for a in descuentos"> 
+            </select>
+            <br><br>
+           <p>$scope.descuentoSeleccionado: {{registro.descuentoSeleccionado}}<p>
+               
+               
+                <p>$scope.producto: {{registro.producto}}<p>
+            <button class="btn btn-success" ng-click="registro.registrar()">Registrar Producto</button>
+        </form>
+    </div>
+</div>

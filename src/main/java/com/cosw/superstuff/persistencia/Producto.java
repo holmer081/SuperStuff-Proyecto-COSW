@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -35,7 +37,7 @@ public class Producto  implements java.io.Serializable {
     public Producto() {
     }
 	
-    public Producto(int idProductos, Categoria categoria, Descuento descuentos, String descripcion, Proveedor proveedor, long precioLista) {
+    /*public Producto(int idProductos, Categoria categoria, Descuento descuentos, String descripcion, Proveedor proveedor, long precioLista) {
         this.idProductos = idProductos;
         this.descuentos = descuentos;
         this.categoria = categoria;
@@ -52,9 +54,29 @@ public class Producto  implements java.io.Serializable {
         this.proveedor = proveedor;
         this.precioLista = precioLista;
         this.metaDatos = metaDatoses;
+    }*/
+    
+    public Producto(Categoria categoria, Descuento descuentos, Proveedor proveedor, String descripcion, long precioLista, String imagen) {
+        this.categoria = categoria;
+        this.descuentos = descuentos;
+        this.proveedor = proveedor;
+        this.descripcion = descripcion;
+        this.precioLista = precioLista;
+        this.imagen = imagen;
+    }
+    
+    public Producto(Categoria categoria, Descuento descuentos, Proveedor proveedor, String descripcion, long precioLista, String imagen, Set<MetaDato> metaDatos) {
+       this.categoria = categoria;
+       this.descuentos = descuentos;
+       this.proveedor = proveedor;
+       this.descripcion = descripcion;
+       this.precioLista = precioLista;
+       this.imagen = imagen;
+       this.metaDatos = metaDatos;
     }
    
-    @Id
+    @Id 
+    @GeneratedValue(strategy=IDENTITY)
     @Column(name="idProductos", unique=true, nullable=false)
     public int getIdProductos() {
         return this.idProductos;
@@ -75,7 +97,7 @@ public class Producto  implements java.io.Serializable {
     }
     
     @ManyToOne
-     @Fetch(FetchMode.JOIN)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name="Categorias_idCategorias", nullable=false)
     public Categoria getCategoria() {
         return categoria;

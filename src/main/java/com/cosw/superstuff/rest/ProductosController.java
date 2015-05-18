@@ -6,6 +6,7 @@
 package com.cosw.superstuff.rest;
 
 import com.cosw.superstuff.logica.SuperStuffLogica;
+import com.cosw.superstuff.persistencia.Categoria;
 import com.cosw.superstuff.persistencia.Producto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -30,14 +32,14 @@ public class ProductosController {
     @Autowired
     SuperStuffLogica superStuff;
     
-    @RequestMapping(value="/proveedor/{id}",method = RequestMethod.GET) 
+   @RequestMapping(value="/proveedor/{id}",method = RequestMethod.GET) 
     public List<Producto> cargarProductosPorProveedor(@PathVariable int id) {
         List<Producto> productos = null;
         productos = superStuff.cargarProductosPorProveedor(id);
         return productos;
     }
     
-    @RequestMapping(value="/categoria/{id}",method = RequestMethod.GET) 
+   @RequestMapping(value="/categoria/{id}",method = RequestMethod.GET) 
     public List<Producto> cargarProductosPorCategoria(@PathVariable int id) {
         List<Producto> productos = null;
         if(id == 0)
@@ -47,10 +49,21 @@ public class ProductosController {
         return productos;
     }
     
-    @RequestMapping(value="/",method = RequestMethod.POST)
+    @RequestMapping(value="/{id}",method = RequestMethod.GET) 
+    public Producto obtenerProductoPorId(@PathVariable int id){
+        Producto producto = superStuff.cargarProductoPorId(id);
+        return producto;
+    }
+    
+    /**
+     *
+     * @param p
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> persist(@RequestBody Producto p) {
         superStuff.registrarProducto(p);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
     
     @RequestMapping(value="/",method = RequestMethod.GET) 

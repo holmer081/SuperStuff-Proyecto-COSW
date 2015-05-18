@@ -6,8 +6,11 @@
 package com.cosw.superstuff.rest;
 
 import com.cosw.superstuff.logica.SuperStuffLogica;
+import com.cosw.superstuff.persistencia.Categoria;
 import com.cosw.superstuff.persistencia.Producto;
 import com.cosw.superstuff.persistencia.Proveedor;
+import com.cosw.superstuff.persistencia.Tendero;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +35,11 @@ public class ProveedoresController {
     public ResponseEntity<?> persist(@RequestBody Proveedor p) {
         superStuff.crearNuevoProveedor(p);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
+    @RequestMapping(value="/all",method = RequestMethod.GET) 
+    public List<Proveedor> cargarProveedores() {  
+        List<Proveedor> proveedores = superStuff.cargarProveedores();
+        return proveedores;
     }
 }

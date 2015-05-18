@@ -87,21 +87,22 @@ public class SuperStuffLogica {
      * @param precio El precio de este producto
      * @param descripcion La descripcion caracteristica de este producto
      */
-    public void registrarProducto(int id, int proveedor, int categoria, int descuento, int precio, String descripcion) {
+    public void registrarProducto(int proveedor, int categoria, int descuento, int precio, String descripcion) {
         Proveedor prov = repositorioProveedores.findOne(Integer.valueOf(proveedor));
         Categoria cat = repositorioCategorias.findOne(Integer.valueOf(categoria));
         Descuento desc = repositorioDescuentos.findOne(Integer.valueOf(descuento));
-        Producto producto = new Producto(id, cat, desc, descripcion, prov, precio);
+        Producto producto = new Producto(cat, desc, prov, descripcion, precio, null);
         repositorioProductos.save(producto);
     }
     
-    /**
+     /**
      * @author Holmer
      * Registra un nuevo producto a partir de un objeto instanciado
      * @param producto 
      */
-    public void registrarProducto(Producto producto){
-        repositorioProductos.save(producto);
+    public int  registrarProducto(Producto producto){
+        int id = repositorioProductos.save(producto).getIdProductos();
+        return id;
     }
     
     /**
@@ -324,5 +325,21 @@ public class SuperStuffLogica {
     
     public List<Tienda> getTiendasPorTendero (int idTendero) {
         return repositorioTiendas.getTiendasPorTendero(idTendero);
+    }
+    
+    public Producto cargarProductoPorId(int id) {
+        return repositorioProductos.findOne(id);
+    }
+
+    public List<Descuento> cargarDescuentos() {
+        return(List<Descuento>)repositorioDescuentos.findAll();
+    }
+
+    public List<Proveedor> cargarProveedores() {
+        return(List<Proveedor>)repositorioProveedores.findAll();
+    }
+
+    public void crearCategoria(Categoria c) {
+        repositorioCategorias.save(c);
     }
 }
