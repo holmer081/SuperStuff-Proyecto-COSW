@@ -1,34 +1,80 @@
 <div>
     <div ng-controller="controlregistro as registro">
-        <h1> Registro de nuevos productos </h1>
-        <form>
-            Descripción del Producto:
-            <br>
-                <input type="text" name="descripcionProducto" ng-model="registro.producto.descripcion">
-            <br><br>
-            
-            Precio del Producto:
-            <br>
-                <input type="number" name="precioProducto" ng-model="registro.producto.precioLista">
-            <br><br>
-            Seleccione una Categoria:
-            <br>
-            <select data-ng-model="registro.categoriaSeleccionada" 
-                    data-ng-options="a.categoria for a in categorias"> 
-            </select>
-            <br><br>
-           <p>$scope.categoriaSeleccionada: {{registro.categoriaSeleccionada}}<p>
-            Descuentos
-            <br>
-            <select data-ng-model="registro.descuentoSeleccionado" 
-                    data-ng-options="a.descripcion for a in descuentos"> 
-            </select>
-            <br><br>
-           <p>$scope.descuentoSeleccionado: {{registro.descuentoSeleccionado}}<p>
-               
-               
-                <p>$scope.producto: {{registro.producto}}<p>
-            <button class="btn btn-success" ng-click="registro.registrar()">Registrar Producto</button>
-        </form>
+        
+        <div class="main">
+            <div class="main-inner">
+                <div class="container">
+                    <div class="row">
+                        <div class="span12">      		
+                            <div class="widget ">
+                                <div class="widget-header">
+                                    <i class="icon-user"></i>
+                                    <h3>Registrar Productos</h3>
+                                </div> <!-- /widget-header -->
+
+                                <div class="widget-content">
+                                    <div class="tabbable">
+                                        <ul class="nav nav-tabs">
+                                            <li  class="active"><a href="#jscontrols" data-toggle="tab">Ingrese los datos para registrar un nuevo producto</a></li>
+                                        </ul>
+                                        <br>
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="jscontrols">
+                                               <form id="edit-profile" class="form-horizontal">
+                                                    <fieldset>
+                                                        <div class="control-group">											
+                                                            <label class="control-label" for="descripcion">Descripción del Producto</label>
+                                                            <div class="controls">
+                                                                <textarea name="descripcionProducto" rows="5" class="span6" id="descripcion" ng-model="registro.producto.descripcion"></textarea>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+                                                        <div class="control-group">											
+                                                            <label class="control-label" for="precio">Precio del Producto</label>
+                                                            <div class="controls">
+                                                                <input type="number" name="precioProducto" class="span6" id="precio" ng-model="registro.producto.precioLista">
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+                                                        <div class="control-group">											
+                                                            <label class="control-label" for="categoria">Seleccione una Categoria</label>
+                                                            <div class="controls">
+                                                                <select data-ng-model="registro.categoriaSeleccionada" 
+                                                                        data-ng-options="a.categoria for a in categorias" 
+                                                                        id="categoria"
+                                                                        class="span6"> 
+                                                                </select>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+                                                        <div class="control-group">											
+                                                            <label class="control-label" for="descuentos">Descuentos</label>
+                                                            <div class="controls">
+                                                                <select data-ng-model="registro.descuentoSeleccionado" 
+                                                                        data-ng-options="a.descripcion for a in descuentos" 
+                                                                        id="descuentos"
+                                                                        class="span6"> 
+                                                                </select>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                        
+                                                       
+                                                    </fieldset>
+                                                    <div class="form-actions">
+                                                            <button class="btn btn-success" ng-click="registro.registrar()">Registrar Producto</button>
+                                                            <button class="btn">Cancelar</button>
+                                                        </div> <!-- /form-actions -->
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- /widget-content -->
+                            </div> <!-- /widget -->
+                        </div> <!-- /span8 -->
+                    </div> <!-- /row -->
+                </div> <!-- /container -->
+            </div> <!-- /main-inner -->
+        </div> <!-- /main -->
     </div>
 </div>
