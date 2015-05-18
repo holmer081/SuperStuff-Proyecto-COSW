@@ -66,9 +66,11 @@ public class PedidosController {
     }
 
     private String realizarPago(String numTarjeta, String securityCode, String nombre, String cantidad) {
+        StringBuilder builder = new StringBuilder();
+        
         try {
             String stringurl = "https://pasarelacosw.herokuapp.com/rest/PAYPAL/pago/tarjeta/" + numTarjeta +
-                    "/" + nombre +"/VISA/" + securityCode + "/correoFalso" + "/monto/" + cantidad + "/seguridad/3/SuperStuff";
+                    "/" + nombre +"/VISA/" + securityCode + "/correoFalso/monto/" + cantidad + "/seguridad/3/SuperStuff";
             URL url = new URL(stringurl);
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setDoOutput(true);
@@ -77,35 +79,16 @@ public class PedidosController {
                     httpCon.getOutputStream());
             out.close();
             
-            return getStringFromInputStream(httpCon.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
         } catch (MalformedURLException ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "";
-    }
-    
-    private static String getStringFromInputStream(InputStream is) {
-        BufferedReader br = null;
-        StringBuilder sb = new StringBuilder();
-        String line;
-        try {
-            br = new BufferedReader(new InputStreamReader(is));
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return sb.toString();
+        return builder.toString();
     }
 }
