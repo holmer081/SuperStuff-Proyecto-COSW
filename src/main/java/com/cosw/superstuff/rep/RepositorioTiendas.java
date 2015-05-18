@@ -19,4 +19,7 @@ public interface RepositorioTiendas extends CrudRepository<Tienda, Integer>{
     
     @Query("SELECT t from Tendero tend INNER JOIN tend.tiendas t WHERE tend.idTenderos = :idTendero")
     public List<Tienda> getTiendasPorTendero (@Param("idTendero") int idTendero);
+    
+    @Query("SELECT t from Tienda t JOIN FETCH t.facturases WHERE t.idTiendas = :idTienda")
+    public Tienda traerTiendaConFacturas(@Param("idTienda") int idTienda);
 }

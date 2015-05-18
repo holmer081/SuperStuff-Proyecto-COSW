@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,12 +38,11 @@ public class PedidosController {
     SuperStuffLogica superStuff;
 
     
-    @RequestMapping(value="/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String realizarPedido(@RequestParam(value = "numTarjeta") String numTarjeta
             , @RequestParam(value = "securityCode") String securityCode
             , @RequestParam(value = "idTendero") int idTendero
             , @RequestParam(value = "idTienda") int idTienda
-            , @RequestParam(value = "direccion") String direccion
             , @RequestParam(value = "dia") int dia
             , @RequestParam(value = "mes") int mes
             , @RequestParam(value = "ano") int ano
@@ -54,10 +54,9 @@ public class PedidosController {
         date.setMonth(mes);
         date.setYear(ano);
         
-        
         try {
             Tendero tendero = superStuff.cargarTenderoPorId(idTendero);
-            Factura factura = superStuff.registrarPedido(idTienda, direccion, date, idProductos, cantidades);
+            Factura factura = superStuff.registrarPedido(idTienda, date, idProductos, cantidades);
             return realizarPago(numTarjeta, securityCode, tendero.getNombre(), String.valueOf(factura.getValor()));
         } catch (Exception ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,31 +87,25 @@ public class PedidosController {
     }
     
     private static String getStringFromInputStream(InputStream is) {
- 
-		BufferedReader br = null;
-		StringBuilder sb = new StringBuilder();
- 
-		String line;
-		try {
- 
-			br = new BufferedReader(new InputStreamReader(is));
-			while ((line = br.readLine()) != null) {
-				sb.append(line);
-			}
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
- 
-		return sb.toString();
- 
-	}
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
+        String line;
+        try {
+            br = new BufferedReader(new InputStreamReader(is));
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sb.toString();
+    }
 }

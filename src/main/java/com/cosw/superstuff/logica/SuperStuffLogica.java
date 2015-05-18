@@ -32,7 +32,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
 import org.springframework.stereotype.Service;
 
 /**
@@ -145,22 +147,21 @@ public class SuperStuffLogica {
      * @author Camilo
      * Registra un nuevo pedido con los detalles de compra correspondiente
      * @param idTienda
-     * @param direccion La direccion del envio
      * @param fecha La fecha en la que deberia llegar el producto
      * @param idProductos La lista de los productos
      * @param cantidades Las cantidades
      * @return El valorTotal del pedido del nuevo pedido registrado
      * @throws java.lang.Exception En caso de que las cantidades no correspondan a los productos
      */
-    public Factura registrarPedido(int idTienda, String direccion, Date fecha, int[] idProductos, int cantidades[]) throws Exception{
+    public Factura registrarPedido(int idTienda, Date fecha, int[] idProductos, int cantidades[]) throws Exception{
         if(idProductos.length != cantidades.length)
             throw new Exception("cantidades no corresponder al numero de productos a pedir");
         
-        Tienda tienda = repositorioTiendas.findOne(idTienda);
+        Tienda tienda = repositorioTiendas.traerTiendaConFacturas(idTienda);
         
         int valorPedido = 0;
         Set<DetalleCompra> detallesCompra = new HashSet<>();
-        Pedido pedido = new Pedido(direccion, fecha, 0);
+        Pedido pedido = new Pedido(tienda.getDireccion(), fecha, 0);
         repositorioPedidos.save(pedido);
         
         for (int i = 0; i < idProductos.length; i++) {

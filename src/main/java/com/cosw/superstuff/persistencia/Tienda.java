@@ -80,7 +80,7 @@ public class Tienda  implements java.io.Serializable {
         this.direccion = direccion;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy = "tienda")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "tienda")
     public Set<Factura> getFacturases() {
         return this.facturases;
     }
