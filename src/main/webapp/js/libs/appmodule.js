@@ -33,6 +33,8 @@
             
             $scope.proveedores=[];
             
+            $scope.productos = [];
+            
             this.detalleProducto={
                 nombre:'',
                 precio:0
@@ -103,6 +105,17 @@
                     );
             };
             
+              this.cargarProductosPorProveedor=function(){
+               var id = this.proveedor.idProveedores;
+               $http.get('rest/productos/proveedor/' + id).success(
+                    function (data, status, headers, config) {
+                        $scope.productos = data;
+                    }).error(function(data, status, headers, config) {
+                        alert('error');
+                      }
+                    );
+            };
+            
             this.registrar=function(){
                //accion
                 this.producto.proveedores = this.proveedores;
@@ -123,9 +136,11 @@
         }
     );
     
-    app.controller('todosLosProductos',
+    app.controller('tenderosController',
        function ($http,$scope){
             $scope.productos=[];
+            
+            $scope.categorias=[];
             
             this.consultar=function(){
                 $http.get('rest/products').success(
@@ -134,8 +149,8 @@
                         }
                     ).error(function(data, status, headers, config) {
                             alert('error');
-                      }
-                    );
+                    }
+                );
             };
        }
        
