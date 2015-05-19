@@ -6,6 +6,7 @@
 package com.cosw.superstuff.rep;
 
 import com.cosw.superstuff.persistencia.Proveedor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,5 +14,8 @@ import org.springframework.data.repository.CrudRepository;
  * @author HOMERO
  */
 public interface RepositorioProveedores extends CrudRepository<Proveedor, Integer>{
+
+    @Query("SELECT p FROM Proveedor p WHERE p.usuario = :usuario AND p.contrasena = :contrasena")
+    public Proveedor obtenerProveedorPorCrendenciales(String usuario, String contrasena);
     
 }

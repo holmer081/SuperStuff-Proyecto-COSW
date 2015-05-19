@@ -342,4 +342,9 @@ public class SuperStuffLogica {
     public void crearCategoria(Categoria c) {
         repositorioCategorias.save(c);
     }
+
+    public Proveedor iniciarSesionProveedor(String usuario, String contrasena) {
+        Proveedor p = repositorioProveedores.obtenerProveedorPorCrendenciales(usuario, contrasena);
+        return p;
+    }
 }
