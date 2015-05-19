@@ -3,23 +3,29 @@
 
     app.config(function ($routeProvider) {
         $routeProvider
-
                 // route for the about page
                 .when('/new', {
                     templateUrl: 'registro.html'
-
                 })
 
                 // route for the contact page
                 .when('/list', {
                     templateUrl: 'catalogo.html'
-
                 })
                 
                 // route for the about page
                 .when('/content', {
                     templateUrl: 'contenidoProveedor.html'
-
+                })
+                
+                // route for the about page
+                .when('/catalogoProductos', {
+                    templateUrl: 'catalogoTendero.html'
+                })
+                
+                //route for the about page
+                .when('/carrito', {
+                    templateUrl: 'carrito.html'
                 });
 
     });
@@ -137,25 +143,86 @@
     );
     
     app.controller('tenderosController',
-       function ($http,$scope){
-            $scope.productos=[];
+       function ($http,$rootScope){
+            $rootScope.carrito=[];
             
-            $scope.categorias=[];
+            $rootScope.categorias=[];
+            
+            $rootScope.cantidades=[];
+            
+            $rootScope.idProductos=[];
+            
+            $rootScope.cantidadTemporal=0;
+            
+            $rootScope.descripcionProducto = 'Descripcion';
+            
+            $rootScope.unidades = 0;
+            
+            $rootScope.productoSeleccionado={
+                idProductos:null,
+                categoria:null,
+                descuentos:null,
+                descripcion:'',
+                precioLista:0,
+                imagen:'',
+                metaDatos:[],
+                proveedores:null
+            };
+            
+            this.categoriaSeleccionada={
+                idCategorias:0,
+                categoria:'',
+                descripcion:''
+            };
             
             this.consultar=function(){
                 $http.get('rest/products').success(
                     function (data, status, headers, config) {
-                        $scope.productos = data;
+                        $rootScope.productos = data;
                         }
                     ).error(function(data, status, headers, config) {
                             alert('error');
                     }
                 );
             };
+            
+            $rootScope.cargarCategorias=function(){
+               $http.get('rest/categorias').success(
+                    function (data, status, headers, config) {
+                        $rootScope.categorias = data;
+                    }).error(function(data, status, headers, config) {
+                        alert('error');
+                      }
+                    );
+            };
+            
+            $rootScope.cargarCategorias();
+            
+            this.cargarProductosPorCategoria=function(){
+                var id = this.categoriaSeleccionada.idCategorias;
+                $http.get('rest/productos/categoria/' + id).success(
+                    function (data, status, headers, config) {
+                        $rootScope.productos = data;
+                        }
+                    ).error(function(data, status, headers, config) {
+                            alert('error');
+                    }
+                );
+            };
+            
+            $rootScope.guardarProductoSeleccionado=function(x){
+                $rootScope.productoSeleccionado = x;
+                $rootScope.descripcionProducto = x.descripcion;
+            };
+            
+            $rootScope.agregarAlCarrito=function(){
+                $rootScope.carrito.push($rootScope.productoSeleccionado);
+                $rootScope.idProductos.push($rootScope.productoSeleccionado.idProductos);
+                $rootScope.cantidades.push($rootScope.unidades);
+                    alert($rootScope.carrito);
+            };
        }
-       
     );
-
 })();
 
 
