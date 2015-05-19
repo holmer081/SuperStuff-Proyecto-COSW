@@ -18,14 +18,15 @@
     
     <mvc:annotation-driven >
         <mvc:message-converters>
-            <bean class = "org.springframework.http.converter.StringHttpMessageConverter">
-               <property name="supportedMediaTypes" value="application/json; charset=UTF-8" />
-            </bean>
             <bean
                 class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">
                     <bean class="com.cosw.superstuff.mappers.HibernateAwareObjectMapper" />
                 </property>
+            </bean>
+            
+            <bean class = "org.springframework.http.converter.StringHttpMessageConverter">
+               <property name="supportedMediaTypes" value="application/json; charset=UTF-8" />
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
